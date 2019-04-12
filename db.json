@@ -1,0 +1,67 @@
+{
+"$id": “Donor”
+“type”: “object”
+“properties”:{
+"Restaurant_Name": { "$id": "/donor/res_name", "type": "string ", title:”Restaurant_Name”},
+“Address”: { "$id": "/donor/Address", "type": "string ", title:”Address”},
+“Contact_Number”: { "$id": "/donor/Contact_Number", "type": "string ", title:”Contact_Number”},
+“Email_Address”: { "$id": "/donor/Email_Add", "type": "string ", title:”Email_Address” },
+“User_Name”: { “$id”: "/donor/User_Name", "type": "string ", title:”User_Name”},
+"Password": { "$id": "/donor/Password", "type": "string ", title:”Password”
+},
+ 
+“$id”:”RizqRep”
+“type”:”object”
+“properties”:
+{
+“Address”: { "$id": "/ rizqrep /Address", "type": "string ", title:”Address”},
+“Email_Address”: { "$id": "/ rizqrep /Email_Add", "type": "string ", title:”Email_Address” },
+“User_Name”: { “$id”: "/ rizqrep /User_Name", "type": "string ", title:”User_Name”},
+"Password": { "$id": "/ rizqrep /Password", "type": "string ", title:”Password”
+},
+
+“$id”:”Transporter”
+“type”:”object”
+“properties”:
+{
+“Vehicle_type”: { "$id": "/transporter/Vehicle_type", "type": "string ", title:”Vehicle_type”},
+“Address”: { "$id": "/transporter/Address", "type": "string ", title:”Address”},
+“Email_Address”: { "$id": "/ transporter /Email_Add", "type": "string ", title:”Email_Address” },
+“User_Name”: { “$id”: "/ transporter /User_Name", "type": "string ", title:”User_Name”},
+"Password": { "$id": "/ transporter /Password", "type": "string ", title:”Password”},
+ }
+},
+
+“$id”:”Waste_Log”
+“type”:”object”
+“properties”:
+{
+“User_email”: { "$id": "/ Waste_Log /Requester_email", "type": "string ",
+title:”Requester_email” },
+“Item_Name”: { "$id": "/ Waste_Log / Item_Name ", "type": "string ",
+title:” Item_Name” },
+“Quantity”: { "$id": "/Waste_Log/ Quantity ", "type": "number ", title:” Quantity” },
+“Type”: { "$id": "/ Waste_Log / Type ", "type": "string ", title:” Type” },
+“Status”: { "$id": "/Waste_Log/Status", "type": "string ", title:” Status”, “default”: Undonated },
+“Time_Added”:{"$id": "/Waste_Log/ Time_Added", "type": "timestamp ",title:” Time_Added” }
+}
+
+“$id”:”Donation_Log”
+“type”:”object”
+“properties”:
+{
+“Donor_email”: { "$id": "/ Donation_Log /Requester_email", "type": "string ",
+title:”Requester_email” },
+“Item_Name”: { "$id": "/ Donation_Log / Item_Name ", "type": "string ",
+title:” Item_Name” },
+“Quantity”: { "$id": "/ Donation_Log / Quantity ", "type": "number ", title:” Quantity” },
+“Type”: { "$id": "/ Donation_Log / Type ", "type": "string ", title:” Type” },
+ “Time_donated”:{"$id": "/ Donation_Log / Time_donated, "type": "timestamp ",
+title:” Time_donated” }
+“Time_assigned”:{"$id": "/ Donation_Log / Time_assigned, "type": "timestamp ",
+title:” Time_assigned” }
+“transporter_email”: { "$id": "/ Donation_Log /Requester_email", "type": "string ",
+title:”transporter_email” },
+“Status”: { "$id": "/ Donation_Log /Status", "type": "string ", title:” Status”, “default”: Pending },
+}
+}
