@@ -6,7 +6,6 @@ import DetailScreen from './components/screenDetail';
 import AddScreen from './components/addData';
 import EditScreen from './components/editData';
 import firebase from './firebase';
-
 const RootStack = createStackNavigator(
   {
     Board: Screen,
