@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, ActivityIndicator, FlatList, View, Text, TextInput, Button } from 'react-native';
-import Todo from './Todo';
 import firebase from 'firebase'
 
 
-const Disp = ({dat}) => {
-  return(
-    <View>
-      <Text>{dat.com}</Text>
-    </View>
+// const Disp = ({dat}) => {
+//   return(
+//     <View>
+//       <Text>{dat.key}</Text>
+//     </View>
     
-  );
-};
+//   );
+// };
 class DetailScreen extends Component {
   constructor() {
     super();
@@ -34,12 +33,13 @@ class DetailScreen extends Component {
   onCollectionUpdate = (querySnapshot) => {
     const posts = [];
     querySnapshot.forEach((doc) => {
-      const com = doc.data();
-      posts.push({
-        key: doc.id, // Document ID
-        doc, // DocumentSnapshot
-        com,
-      });
+      posts.push(doc);
+      // posts.push({
+      //   key: doc.id, // Document ID
+      //   doc, // DocumentSnapshot
+      //   com,
+      // });
+      
     });
     this.setState({
       posts,
@@ -73,7 +73,7 @@ class DetailScreen extends Component {
         {/* <Text>{this.state.posts.title}</Text>   */}
         <FlatList
           data={this.state.posts}
-          renderItem={({item})  => <Disp dat={item}/>} 
+          renderItem={({item})  => <Text> {item.data().name} </Text>} 
         />
         {/* <TextInput  
           placeholder={'Add Name'}
