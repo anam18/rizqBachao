@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, ActivityIndicator, FlatList, View, Text, TextInput, Button } from 'react-native';
+import {Table, Row, Rows} from 'react-native-table-component';
 import firebase from 'firebase'
 
 
@@ -14,11 +15,12 @@ import firebase from 'firebase'
 class DetailScreen extends Component {
   constructor() {
     super();
-    this.ref = firebase.firestore().collection('wastelog');
+    this.ref = firebase.firestore().collection('Wastelog');
     this.unsubscribe = null;
     this.state = {
-      posts: [],
       loading: true,
+      tableHead: ['Item Name','Quantity','Type','Status'],
+      tableData: []
     };
   }
 
@@ -31,30 +33,39 @@ class DetailScreen extends Component {
   }
 
   onCollectionUpdate = (querySnapshot) => {
-    const posts = [];
+    const tableData = [];
     querySnapshot.forEach((doc) => {
-      posts.push(doc);
-      // posts.push({
-      //   key: doc.id, // Document ID
-      //   doc, // DocumentSnapshot
-      //   com,
-      // });
       
+      var name = doc.data().name
+      var type = doc.data().type
+      var quantity = doc.data().quantity
+      var status = doc.data().status
+      var ext= doc.data().extra
+      // const status = doc.data().status
+      // const type = doc.data().type
+      var test=[name, type, quantity, status, ext];
+      tableData.push(test)
     });
+    // this.state.tableData.push(test)
     this.setState({
-      posts,
       loading: false,
+      tableHead: ['Item Name','Quantity','Type','Status','testingWierd'],
+      tableData
    });
   }
 
   upd= () => {
-    this.ref.doc('email/').set({
-      name: 'newName',
+    this.ref.add({
+      name: 'newNameBiggeer',
+      quantity: 23,
+      type: 'veg',
+      status: 'expired',
+      extra: 'fails?'
     });
   }
   static navigationOptions = {
     title: 'Waste Details',
-  };name
+  };
   render() {
     if(this.state.loading){
       return (
@@ -65,38 +76,34 @@ class DetailScreen extends Component {
       );
     }
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>screen Details</Text>
-        
-        <Text>check</Text>  
-        {/* <Text>{this.state.posts.com}</Text>   */}
-        {/* <Text>{this.state.posts.title}</Text>   */}
-        <FlatList
+      <View style={{ flex: 1}}>
+        {/* <Text>{this.state.tableData }</Text> */}
+        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+        <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text}/>
+        <Rows data={this.state.tableData} textStyle={styles.text}/>
+        </Table>
+        {/* <FlatList
           data={this.state.posts}
-          renderItem={({item})  => <Text> {item.data().name} </Text>} 
-        />
+          renderItem={({item})  => <Text> {item.com.name} </Text>} 
+        /> */}
         {/* <TextInput  
           placeholder={'Add Name'}
           // value={!this.state.name}
           onChangeText={(text) =>  this.updateTextInput(text)}
           /> */}
-        {/* <TextInput  
-          placeholder={'Add quantity'}
-          value2={!this.state.textInput}
-          onChangeText={(text) =>  this.updateTextInput(text)}
-        /> */}
         <Button
           title={'Add TODO'}
           // disabled={!this.state.name.length}
           onPress={() =>  this.upd()}
         />
-        {/* <Button
-          title="Go to Details... again"
-          onPress={() => this.props.navigation.push('BoardDetails')}
-        />*/}
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  head: {height: 40, backgroundColor: 'skyblue'},
+  text: {margin: 6},
+});
 
 export default DetailScreen;
