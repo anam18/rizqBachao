@@ -3,15 +3,6 @@ import { StyleSheet, ScrollView, ActivityIndicator, FlatList, View, Text, TextIn
 import {Table, Row, Rows} from 'react-native-table-component';
 import firebase from 'firebase'
 
-
-// const Disp = ({dat}) => {
-//   return(
-//     <View>
-//       <Text>{dat.key}</Text>
-//     </View>
-    
-//   );
-// };
 class DetailScreen extends Component {
   constructor() {
     super();
@@ -40,29 +31,28 @@ class DetailScreen extends Component {
       var type = doc.data().type
       var quantity = doc.data().quantity
       var status = doc.data().status
-      var ext= doc.data().extra
       // const status = doc.data().status
       // const type = doc.data().type
-      var test=[name, type, quantity, status, ext];
+      var test=[name, type, quantity, status];
       tableData.push(test)
     });
     // this.state.tableData.push(test)
     this.setState({
       loading: false,
-      tableHead: ['Item Name','Quantity','Type','Status','testingWierd'],
+      tableHead: ['Item Name','Quantity','Type','Status'],
       tableData
    });
   }
 
-  upd= () => {
-    this.ref.add({
-      name: 'newNameBiggeer',
-      quantity: 23,
-      type: 'veg',
-      status: 'expired',
-      extra: 'fails?'
-    });
-  }
+  // upd= () => {
+  //   this.ref.add({
+  //     name: 'newNameBiggeer',
+  //     quantity: 23,
+  //     type: 'veg',
+  //     status: 'expired',
+  //     extra: 'fails?'
+  //   });
+  // }
   static navigationOptions = {
     title: 'Waste Details',
   };
@@ -92,9 +82,9 @@ class DetailScreen extends Component {
           onChangeText={(text) =>  this.updateTextInput(text)}
           /> */}
         <Button
-          title={'Add TODO'}
+          title={'Add Waste'}
           // disabled={!this.state.name.length}
-          onPress={() =>  this.upd()}
+          onPress={() =>  this.props.navigation.navigate('AddBoard')}
         />
       </View>
     );
