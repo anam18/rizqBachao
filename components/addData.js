@@ -30,11 +30,14 @@ class AddScreen extends Component {
 
   submitWaste= () => {
     const {name, quantity, type, status} = this.state
+    var time = String(new Date().getDate())+'/'+String(new Date().getMonth())+'/'+String(new Date().getFullYear());
+
     this.ref.add({
-      name,
+      itemName: name,
       quantity: parseInt(quantity),
       type,
       status,
+      dateAdded: time,
     });
     Alert.alert(
       'Waste Log',

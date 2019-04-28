@@ -10,7 +10,7 @@ class DetailScreen extends Component {
     this.unsubscribe = null;
     this.state = {
       loading: true,
-      tableHead: ['Item Name','Quantity','Type','Status'],
+      tableHead: ['Item Name','Quantity','Type','Status','Date Added'],
       tableData: []
     };
   }
@@ -27,19 +27,19 @@ class DetailScreen extends Component {
     const tableData = [];
     querySnapshot.forEach((doc) => {
       
-      var name = doc.data().name
+      var name = doc.data().itemName
       var type = doc.data().type
       var quantity = doc.data().quantity
       var status = doc.data().status
-      // const status = doc.data().status
-      // const type = doc.data().type
-      var test=[name, type, quantity, status];
+      var date = doc.data().dateAdded
+      // var parsed = date.
+      var test=[name, type, quantity, status, date];
       tableData.push(test)
     });
     // this.state.tableData.push(test)
     this.setState({
       loading: false,
-      tableHead: ['Item Name','Quantity','Type','Status'],
+      tableHead: ['Item Name','Quantity','Type','Status','Date Added'],
       tableData
    });
   }
