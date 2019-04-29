@@ -120,7 +120,11 @@ export default class SignupTransporter extends Component {
             onPress={this.onPress}>
             <Text>Sign Up</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button2}>
+            <TouchableOpacity 
+            style={styles.button2}
+            onPress={()=>{
+              this.props.navigation.navigate('Log')
+            }}>
                 <Text style={styles.underline}>Already have an account? Sign In here.</Text>
             </TouchableOpacity>
           </View>

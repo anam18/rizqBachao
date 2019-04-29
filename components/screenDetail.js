@@ -6,7 +6,10 @@ import firebase from 'firebase'
 class DetailScreen extends Component {
   constructor() {
     super();
-    this.ref = firebase.firestore().collection('Wastelog');
+    // const { navigation } = this.props;
+    // const itemId = navigation.getParam('email');
+    this.ref=firebase.firestore().collection('Wastelog')
+    // this.ref = firebase.firestore().collection('Wastelog');
     this.unsubscribe = null;
     this.state = {
       loading: true,
@@ -130,6 +133,10 @@ class DetailScreen extends Component {
     title: 'Waste Details',
   };
   render() {
+    const { navigation } = this.props;
+    const email = navigation.getParam('email', '');
+    const name = navigation.getParam('name', '');
+    const addr = navigation.getParam('addr', '');
     if(this.state.loading){
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -197,7 +204,11 @@ class DetailScreen extends Component {
         <Button
           title={'Add Waste'}
           // disabled={!this.state.name.length}
-          onPress={() =>  this.props.navigation.navigate('AddBoard')}
+          onPress={() =>  this.props.navigation.navigate('AddBoard',{
+            email: email,
+            name: name,
+            addr: addr,
+          })}
         />
         <Button
           title={'Donate'}

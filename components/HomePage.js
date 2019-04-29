@@ -2,7 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 // import { Button } from 'react-native-elements';
 // import { reateStackNavigator } from 'react-navigation';
-import requests from './requests';
+// import requests from './requests';
+// import SignupDonor from './SignupCenter';
+// import SignupCenter from './SignupCenter';
+// import SignupTransporter from './SignupTransporter';
+// import LoginScreen from './LoginScreen';
 
 
 export default class App extends React.Component {
@@ -13,35 +17,32 @@ export default class App extends React.Component {
 
         <View style={styles.logoContainer}>
           <Text>Welcome to RIZQ</Text>
+          <Text>What are you?</Text>
           
         </View>
         <View style={styles.formContainer}>
           <TouchableOpacity 
           style={styles.button} 
-          onPress={()=> this.props.navigation.navigate('requests')}
+          onPress={()=> this.props.navigation.navigate('Log', {next: 'Board'})}
           >
-            <Text style={styles.btntext}>View donation requests</Text>
+            <Text style={styles.btntext}>Donor</Text>
             
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.button}
-          onPress={()=> this.props.navigation.navigate('status')}
+          onPress={()=> this.props.navigation.navigate('Log', {next: 'rizqCent'})}
           >
-            <Text style={styles.btntext}>Update Status of food</Text>
+            <Text style={styles.btntext}>Rizq Center</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button}
-          onPress={()=> this.props.navigation.navigate('value')}
+          {/* <TouchableOpacity style={styles.button}
+          onPress={()=> this.props.navigation.navigate('SignupTransporter',{next: 'Transporter'})}
           >
-            <Text style={styles.btntext}>Assign value to food</Text>
-          </TouchableOpacity>
+            <Text style={styles.btntext}>Rider</Text>
+          </TouchableOpacity> */}
 
-          <TouchableOpacity style={styles.button}
-          onPress={()=> this.props.navigation.navigate('stats')}
-          >
-            <Text style={styles.btntext}>View Statistics</Text>
-            
-          </TouchableOpacity>
+
+          
           
         </View>
         </View>

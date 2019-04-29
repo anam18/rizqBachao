@@ -6,22 +6,24 @@ export default class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password:"",
-
+      email: '',
+      password:'',
+      id: '',
     };
 
   }
-  onPress = () => {
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+  onPress = (nxt) => {
+    firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
       .then(()=>{
         Alert.alert('Login successful');
-
+        this.props.navigation.navigate(nxt,{email: this.state.email});
       }, (error)=> {
         Alert.alert(error.message);
       });
   }
   render() {
+    const { navigation } = this.props;
+    const itemId = navigation.getParam('next', 'Board');
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
           <View>
@@ -39,12 +41,22 @@ export default class LoginScreen extends Component {
             onChangeText={(text)=>{this.setState({password:text})}}
             />
             <TouchableOpacity style={styles.button}
-            onPress={this.onPress}>
+            onPress={()=>this.onPress(itemId,this.state.email,this.state.password)}>
                 <Text>Sign In</Text>
             {/* Need to hyperlink this button to registration form */}
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button2}>
+            <TouchableOpacity 
+              style={styles.button2}
+              onPress={()=>{
+                if(itemId=='Board'){
+                  this.props.navigation.navigate('SignDonor',{next: itemId})
+                }else if(itemId=='rizqCent'){
+                  this.props.navigation.navigate('SignCenter',{next: itemId})
+                }                
+              }}
+              >
                 <Text>Don't have an account? Sign Up here.</Text>
+                
             </TouchableOpacity>
           </View>
       </KeyboardAvoidingView>

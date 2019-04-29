@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native';
-import { List, ListItem  } from 'react-native-elements';
-import { } from 'react-navigation';
+// import { List, ListItem  } from 'react-native-elements';
+// import { } from 'react-navigation';
 
 
 

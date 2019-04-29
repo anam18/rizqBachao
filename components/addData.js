@@ -14,11 +14,15 @@ class AddScreen extends Component {
     };
   }
 
-  submitWaste= () => {
+  submitWaste= (email) => {
     const {name, quantity, type, status} = this.state
     var time = String(new Date().getDate())+'/'+String(new Date().getMonth())+'/'+String(new Date().getFullYear());
 
     this.ref.add({
+      Email: email,
+      // Name: rName,
+      // Address: Addr,
+      
       itemName: name,
       quantity: parseInt(quantity),
       type,
@@ -35,7 +39,7 @@ class AddScreen extends Component {
             quantity: '',
             type: '',  
           })
-          this.props.navigation.navigate('BoardDetails')
+          this.props.navigation.navigate('BoardDetails', {email: email})
         }},
       ],
       {cancelable: false},
@@ -46,8 +50,10 @@ class AddScreen extends Component {
     title: 'Add Waste',
   };
   render() {
-    
-
+    const { navigation } = this.props;
+    const email = navigation.getParam('email', '');
+    // const rName = navigation.getParam('rName', '');
+    // const Addr = navigation.getParam('address', '');
     return (
       <KeyboardAvoidingView style={{flex:1}}behavior="padding" enabled>
       <View style={{ flex: 1, flexDirection: 'column' }}>
@@ -86,7 +92,7 @@ class AddScreen extends Component {
         <Button
           title="Submit"
           disabled={!this.state.name.length || !this.state.quantity.length || !this.state.type.length}
-          onPress={() => this.submitWaste()}
+          onPress={() => this.submitWaste(email)}
         />
         {/* <Button
           title="Go to Home"
