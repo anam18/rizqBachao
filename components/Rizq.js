@@ -36,12 +36,7 @@ export default class App extends React.Component {
             <Text style={styles.btntext}>Assign value to food</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button}
-          onPress={()=> this.props.navigation.navigate('stats')}
-          >
-            <Text style={styles.btntext}>View Statistics</Text>
-            
-          </TouchableOpacity>
+          
           
         </View>
         </View>
