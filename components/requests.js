@@ -7,7 +7,7 @@ import { YellowBox } from 'react-native';
 let comp=(new Date().getDate()) + '/' + (new Date().getMonth()+1) +'/' + new Date().getFullYear()
 
 YellowBox.ignoreWarnings(['Setting a timer']);
-export default class SignupDonor extends Component {
+export default class requests extends Component {
   constructor(props) {
     super(props);
     this.state = {
