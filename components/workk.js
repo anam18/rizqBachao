@@ -27,18 +27,18 @@ export default class SignupDonor extends Component {
       return (
             <View style={styles.view2}>
                 <Text style={styles.fortext}>{item.ContactNo}</Text>
-                <Text style={styles.fortext}>{item.Email}</Text>
+                <Text style={styles.fortext}>{item.Key}</Text>
                 <Text style={styles.fortext}>{item.Name}</Text>
                 <TouchableOpacity 
                 style={styles.button} 
                  onPress={()=> {
                     //  Alert.alert(this.state.email)
                      this.state.rider=item.Name
-                     this.state.messgae='Request accepted'
+                     this.state.message='Request accepted'
                      this.ref2.add({
-                        Rider: this.state.rider,
-                        Email: this.state.email,
-                        Messgae: this.state.message
+                        Rider: item.Name,
+                        Key: this.state.email,
+                        Message: this.state.message
                       }).then(()=>{
                         Alert.alert('Transporter assigned');
                         
