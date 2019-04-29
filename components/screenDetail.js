@@ -10,9 +10,9 @@ class DetailScreen extends Component {
     this.unsubscribe = null;
     this.state = {
       loading: true,
-      tableHead: ['Item Name','Quantity','Type','Status','Date Added', 'Donate?'],
+      tableHead: ['Item Name','Quantity','Type','Status','Date Added', 'Select'],
       tableData: [],
-      donateData: [],
+      selectedData: [],
       checked: [],
     };
   }
@@ -35,17 +35,17 @@ class DetailScreen extends Component {
       var quantity = doc.data().quantity
       var status = doc.data().status
       var date = doc.data().dateAdded
-      // var parsed = date.
-      var test=[name, quantity, type, status, date,''];
+      var id = doc.id
+      var test=[name, quantity, type, status, date,id];
       tableData.push(test);
       chk.push(false);
     });
     // this.state.tableData.push(test)
     this.setState({
       loading: false,
-      tableHead: ['Item Name','Quantity','Type','Status','Date Added', 'Donate?'],
+      tableHead: ['Item Name','Quantity','Type','Status','Date Added', 'Select'],
       tableData,
-      checked: chk
+      checked: chk,
    });
   }
 
@@ -58,11 +58,45 @@ class DetailScreen extends Component {
   //     extra: 'fails?'
   //   });
   // }
+  confirmDelete = (data)=>{
+    data.forEach(rec => {
+      const id = rec[5]
+      this.ref.doc(id).delete();
+    })
+    Alert.alert(
+      'Delete Log',
+      'Items Deleted successfully',
+      [{text: 'Continue'}]
+    )
+  }
+
+  delRec = () => {
+    const data = this.state.selectedData
+    Alert.alert(
+      'Delete Log',
+      'Are you sure you want to remove the selected items?',
+      [
+        {text: 'Yes', onPress: ()=>{
+          const empt=[]
+          this.setState({selectedData: empt})
+          this.confirmDelete(data)}},
+        {text: 'No'}
+      ],
+      {cancelable: false},
+    );
+    
+    
+  }
+
+  updateStatus = (id)=>{
+    this.ref.doc(id).update({status: 'pending'})
+  }
 
   sendReq = () => {
-    const data = this.state.donateData;
+    const data = this.state.selectedData;
     donRef=firebase.firestore().collection('DonationReqs');
     // var time = String(new Date().getDate())+'/'+String(new Date().getMonth())+'/'+String(new Date().getFullYear());
+    
     data.forEach((req)=>{
       // const {name, quantity, type, status, date} = req;
       donRef.add({
@@ -71,7 +105,9 @@ class DetailScreen extends Component {
         type: String(req[2]),
         status: String(req[3]),
         dateAdded: String(req[4]),
+        docID: req[5],
       });
+      this.updateStatus(req[5]);
     }
     );
     
@@ -83,6 +119,11 @@ class DetailScreen extends Component {
       ],
       {cancelable: false},
     );
+    const arr=[]
+    this.setState({
+      selectedData: arr,
+    })
+
   }
 
   static navigationOptions = {
@@ -100,7 +141,7 @@ class DetailScreen extends Component {
     const state = this.state
     const element = (data, index) => (
       <TouchableOpacity onPress={() => {
-        var dat = this.state.donateData
+        var dat = this.state.selectedData
         var finalDat = []
         if(!this.state.checked[index]){
           finalDat=dat;
@@ -116,7 +157,7 @@ class DetailScreen extends Component {
         chk[index] = !chk[index]
         // this.state.donateData.push(dat)
         this.setState({
-          donateData: finalDat,
+          selectedData: finalDat,
           checked: chk,
         })
         // valid
@@ -153,15 +194,6 @@ class DetailScreen extends Component {
           }
         {/* // <Rows data={this.state.tableData} textStyle={styles.text}/> */}
         </Table>
-        {/* <FlatList
-          data={this.state.posts}
-          renderItem={({item})  => <Text> {item.com.name} </Text>} 
-        /> */}
-        {/* <TextInput  
-          placeholder={'Add Name'}
-          // value={!this.state.name}
-          onChangeText={(text) =>  this.updateTextInput(text)}
-          /> */}
         <Button
           title={'Add Waste'}
           // disabled={!this.state.name.length}
@@ -169,8 +201,13 @@ class DetailScreen extends Component {
         />
         <Button
           title={'Donate'}
-          // disabled={!this.state.donateData.length}
+          disabled={!this.state.selectedData.length}
           onPress={() =>  this.sendReq()}
+        />
+        <Button
+          title={'Delete'}
+          disabled={!this.state.selectedData.length}
+          onPress={() =>  this.delRec()}
         />
       </View>
     );
