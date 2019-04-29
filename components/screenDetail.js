@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, ActivityIndicator, FlatList, View, Text, TextInput, Button } from 'react-native';
 import {Table, Row, Rows} from 'react-native-table-component';
-import firebase from 'firebase'
+import firebase from 'firebase';
 
 class DetailScreen extends Component {
   constructor() {

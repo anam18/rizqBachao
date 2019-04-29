@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "128600397297",
+    "firebase_url": "https://rizq-b09d3.firebaseio.com",
+    "project_id": "rizq-b09d3",
+    "storage_bucket": "rizq-b09d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128600397297:android:7f1cbad7993dc2b1",
+        "android_client_info": {
+          "package_name": "com.rizq.rizqBachao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128600397297-5j4p14jcd0cubvk9c3khofb16liefid4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOt3pBQNPE-8P3X4f0ne62mYpoHmc2LTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128600397297-5j4p14jcd0cubvk9c3khofb16liefid4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
