@@ -1,23 +1,28 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Alert } from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { YellowBox } from 'react-native';
+//import { getMaxListeners } from 'cluster';
 
 let comp=(new Date().getDate()) + '/' + (new Date().getMonth()+1) +'/' + new Date().getFullYear()
+//let a='rubabahmed46@gmail.com'
 
 YellowBox.ignoreWarnings(['Setting a timer']);
-export default class requests extends Component {
+export default class SignupDonor extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
+      message:'',
+      email:'',
       todos:[],
     //   comp: (new Date().getDate()) + '/' + (new Date().getMonth()+1) +'/' + new Date().getFullYear()
 
 
     };
     this.ref=firebase.firestore().collection('DonationReqs').where("Date", "==" ,comp);
+    this.ref2=firebase.firestore().collection('Notifications_Donor');
     this.unsubscribe=null;
 
   }
@@ -36,7 +41,23 @@ export default class requests extends Component {
                 >
                 <Text>Accept</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button2}>
+                <TouchableOpacity style={styles.button2}
+                onPress={()=>{
+                  this.state.message='request rejected'
+                  this.state.email=item.D_Email
+                  this.ref2.add({
+                    
+                    Key: item.D_Email,
+                    Message: this.state.message
+                  }).then(()=>{
+                    Alert.alert('Request Rejected');
+                    
+                  }, (err)=>{
+                    Alert.alert(error.message)
+                  })
+                  this.props.navigation.navigate('requests')
+                }}
+                >
                 <Text style={styles.btext}>Reject</Text>
                 </TouchableOpacity>
                 </View>
