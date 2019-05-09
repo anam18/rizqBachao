@@ -15,27 +15,6 @@ class Screen extends Component {
       // addr: this.ref.data().Address,
     };
   }
-  // componentDidMount() {
-  //   this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate)
-  // }
-
-  // componentWillUnmount() {
-  //   this.unsubscribe();
-  // }
-
-  // onCollectionUpdate = (querySnapshot) => {
-  //   querySnapshot.forEach((doc) => {
-      
-  //     var Raddr = doc.data().Address
-  //     var resNam = doc.data().RestaurantName
-
-  //   });
-  //   // this.state.tableData.push(test)
-  //   this.setState({
-  //     name: resNam,
-  //     addr: Raddr, 
-  //  });
-  // }
   static navigationOptions = {
     title: 'RizqBachao',
 
