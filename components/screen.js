@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, FlatList, View, Text, TextInput, Button } from 'react-native';
+import { StyleSheet, ScrollView, FlatList, View, Text, TextInput, Button,TouchableOpacity } from 'react-native';
 // import { List, ListItem, Button, Icon } from 'react-native-elements';
 import firebase from 'firebase'
 class Screen extends Component {
@@ -26,28 +26,15 @@ class Screen extends Component {
 
     return (
       <View style= {styles.container}>
-        <Button 
-          title="Wastelog"
-          onPress={() => this.props.navigation.navigate('BoardDetails',{
-            email: itemId,
-            // address: this.state.addr,
-            // rName: this.state.name
-          })}
-        />
-        <Button
-          title="Add Waste"
-          onPress={() => this.props.navigation.navigate('AddBoard',{
-            email: itemId,
-            // address: this.state.addr,
-            // rName: this.state.name
-          })}
-        />
-        <Button
-          title="Donor Notifications"
-          onPress={() => this.props.navigation.navigate('donorNot',{
-            email: itemId
-          })}
-        />
+        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('BoardDetails',{ email: itemId, })}>
+            <Text>Waste Log</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('AddBoard',{ email: itemId, })}>
+            <Text>Add Waste</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('donorNot',{ email: itemId, })}>
+            <Text>Donor Notifications</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -59,6 +46,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  button: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#59cbbd',
+    marginTop: 30,
+  
   },
 });
 

@@ -23,6 +23,7 @@ export default class SignupDonor extends Component {
     };
     this.ref=firebase.firestore().collection('DonationReqs');//.where("Date", "==" ,comp);
     this.ref2=firebase.firestore().collection('Notifications_Donor');
+    this.ref3=firebase.firestore().collection('Donors');
     this.unsubscribe=null;
 
   }
