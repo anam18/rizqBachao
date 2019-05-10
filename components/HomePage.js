@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-// import { Button } from 'react-native-elements';
-// import { reateStackNavigator } from 'react-navigation';
-// import requests from './requests';
-// import SignupDonor from './SignupCenter';
-// import SignupCenter from './SignupCenter';
-// import SignupTransporter from './SignupTransporter';
-// import LoginScreen from './LoginScreen';
+import { Button } from 'react-native-elements';
+import { reateStackNavigator } from 'react-navigation';
+import requests from './requests';
+import SignupDonor from './SignupCenter';
+import SignupCenter from './SignupCenter';
+import SignupTransporter from './SignupTransporter';
+import LoginScreen from './LoginScreen';
 
 
 export default class App extends React.Component {
@@ -23,23 +23,23 @@ export default class App extends React.Component {
         <View style={styles.formContainer}>
           <TouchableOpacity 
           style={styles.button} 
-          onPress={()=> this.props.navigation.navigate('Log', {next: 'Board'})}
+          onPress={()=> this.props.navigation.navigate('SignupDonor', {next: 'Donor'})}
           >
             <Text style={styles.btntext}>Donor</Text>
             
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.button}
-          onPress={()=> this.props.navigation.navigate('Log', {next: 'rizqCent'})}
+          onPress={()=> this.props.navigation.navigate('SignupCenter', {next: 'Center'})}
           >
             <Text style={styles.btntext}>Rizq Center</Text>
           </TouchableOpacity>
 
-          {/* <TouchableOpacity style={styles.button}
+          <TouchableOpacity style={styles.button}
           onPress={()=> this.props.navigation.navigate('SignupTransporter',{next: 'Transporter'})}
           >
             <Text style={styles.btntext}>Rider</Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
 
 
           

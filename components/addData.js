@@ -6,7 +6,6 @@ class AddScreen extends Component {
   constructor(){
     super();
     this.ref = firebase.firestore().collection('Wastelog')
-    this.ref2 = firebase.firestore().collection('Donors')
     this.state = {
       name: '',
       quantity: '',

@@ -21,6 +21,7 @@ export default class SignupTransporter extends Component {
 
   }
   onPress = () => {
+    this.setState({err:''})
     if (this.state.vehicle == "")
     {
       this.setState({err:'Please select a vehicle from the drop down menu'})
@@ -120,11 +121,7 @@ export default class SignupTransporter extends Component {
             onPress={this.onPress}>
             <Text>Sign Up</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
-            style={styles.button2}
-            onPress={()=>{
-              this.props.navigation.navigate('Log')
-            }}>
+            <TouchableOpacity style={styles.button2}>
                 <Text style={styles.underline}>Already have an account? Sign In here.</Text>
             </TouchableOpacity>
           </View>

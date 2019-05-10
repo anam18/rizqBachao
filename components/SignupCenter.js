@@ -13,12 +13,14 @@ export default class SignupDonor extends Component {
       password:"",
       address: "",
       err: "",
+      
 
     };
     this.ref=firebase.firestore().collection('Center');
 
   }
-  onPress = (nxt) => {
+  onPress = () => {
+    this.setState({err:''})
     if (this.state.address == "")
     {
       this.setState({err:'Please enter the address of your restuarant'})
@@ -39,8 +41,9 @@ export default class SignupDonor extends Component {
             Email: this.state.email,
           }).then(()=>{
             Alert.alert('Data added');
-            this.props.navigation.navigate('Log',nxt);
+            
           }
+
           );
             
         }, (error)=> {
@@ -50,8 +53,6 @@ export default class SignupDonor extends Component {
     Keyboard.dismiss()
   }
   render() {
-    const { navigation } = this.props;
-    const itemId = navigation.getParam('next', 'Board');
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
           <View>
@@ -76,14 +77,10 @@ export default class SignupDonor extends Component {
             onChangeText={(text)=>{this.setState({password:text})}}
             />
             <TouchableOpacity style={styles.button}
-            onPress={()=>{this.onPress(itemId)}}>
+            onPress={this.onPress}>
             <Text>Sign Up</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
-            style={styles.button2}
-            onPress={()=>{
-              this.props.navigation.navigate('Log', {next: itemId})
-            }}>
+            <TouchableOpacity style={styles.button2}>
                 <Text style={styles.underline}>Already have an account? Sign In here.</Text>
             </TouchableOpacity>
           </View>

@@ -17,16 +17,26 @@ export default class SignupDonor extends Component {
       message:'',
       email:'',
       todos:[],
+      items:[],
     //   comp: (new Date().getDate()) + '/' + (new Date().getMonth()+1) +'/' + new Date().getFullYear()
 
 
     };
-    this.ref=firebase.firestore().collection('DonationReqs');//.where("Date", "==" ,comp);
+    this.ref=firebase.firestore().collection('DonationReqs')//.where("Date", "==" ,comp);
     this.ref2=firebase.firestore().collection('Notifications_Donor');
-    this.ref3=firebase.firestore().collection('Donors');
     this.unsubscribe=null;
 
   }
+
+  lapsList() {
+
+    return this.state.items.map((data) => {
+      return (
+        <View><Text>{data}</Text></View>
+      )
+    })
+
+}
   renderItem = ({item}) => {
       if (this.state.todos.length==0)
       {
@@ -39,25 +49,32 @@ export default class SignupDonor extends Component {
           <View style={styles.view2}>
               <Text style={styles.fortext}>Address: {item.Address}</Text>
               <Text style={styles.fortext}>Donor: {item.Donor}</Text>
-              <Text style={styles.fortext}>Items: {item.Item}</Text>
-              <Text style={styles.fortext}>Quantity: {item.Quantity}</Text>
+              {/* <Text style={styles.fortext}>Items: {item.Item.split(',')}</Text> */}
+              {/* let arr=item.Item.split(',')
+              arr.forEach((it)=>{
+              <Text style={styles.fortext}>Item: {it}</Text>
+
+              }) */}
+              <View>{this.lapsList()}</View>
+              {/* <Text style={styles.fortext}>Quantity: {item.Quantity}</Text> */}
               <View style={styles.container}>
               <TouchableOpacity style={styles.button} 
               onPress={()=> this.props.navigation.navigate('workk',{
                 donEmail: item.D_Email,
                 donName: item.Donor,
                 donItem: item.Item,
-                donQuantity: item.Quantity
+                donQuantity: item.Quantity,
+                donDate:item.Date
              })}
               >
               <Text>Accept</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.button2}
               onPress={()=>{
-                this.state.message='request rejected'
+                this.state.message='Donation Request Rejected'
                 this.state.email=item.D_Email
                 this.ref2.add({
-                  
+                  date: item.Date,
                   Key: item.D_Email,
                   Message: this.state.message
                 }).then(()=>{
@@ -90,13 +107,14 @@ export default class SignupDonor extends Component {
 
   }
   componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate)
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate) 
   }
   componentWillUnmount() {
     this.unsubscribe();
   }
   onCollectionUpdate = (querySnapshot) => {
     const todos = [];
+    const items= [];
     querySnapshot.forEach((doc) => {
       const { Address, D_Email, Date, Donor, Item, Quantity, Status } = doc.data();
       
@@ -111,10 +129,23 @@ export default class SignupDonor extends Component {
         Quantity,
         Status,
       });
+      
+      //let tempitems=[]
+      let quan=Quantity.split(',')
+      let arr=Item.split(',')
+      for (i=0; i<arr.length; i++){
+        arr[i]=arr[i]+", "+quan[i]+' kg';
+      }
+      this.state.items=arr
+      
+      
+
+      
     });
   
     this.setState({ 
       todos,
+      // items,
       loading: false,
    });
   }

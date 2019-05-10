@@ -123,8 +123,8 @@ class DetailScreen extends Component {
   render() {
     const { navigation } = this.props;
     const email = navigation.getParam('email', '');
-    const name = navigation.getParam('name', '');
-    const address = navigation.getParam('address', '');
+    const resname = navigation.getParam('name', '');
+    const resaddress = navigation.getParam('address', '');
     if(this.state.loading){
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -194,8 +194,8 @@ class DetailScreen extends Component {
           // disabled={!this.state.name.length}
           onPress={() =>  this.props.navigation.navigate('AddBoard',{
             email: email,
-            name: name,
-            addr: addr,
+            name: resname,
+            address: resaddress,
           })}
         />
         <Button
