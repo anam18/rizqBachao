@@ -6,6 +6,7 @@ class AddScreen extends Component {
   constructor(){
     super();
     this.ref = firebase.firestore().collection('Wastelog')
+    this.ref2 = firebase.firestore().collection('Donors')
     this.state = {
       name: '',
       quantity: '',
@@ -13,21 +14,18 @@ class AddScreen extends Component {
       status: 'undonated',
     };
   }
-
-  submitWaste= (email) => {
+  submitWaste= (email , restaurantName , restaurantAddress) => {
     const {name, quantity, type, status} = this.state
     var time = String(new Date().getDate())+'/'+String(new Date().getMonth())+'/'+String(new Date().getFullYear());
-
     this.ref.add({
-      Email: email,
-      // Name: rName,
-      // Address: Addr,
-      
-      itemName: name,
-      quantity: parseInt(quantity),
-      type,
-      status,
-      dateAdded: time,
+      D_Email: email,      
+      Item: name,
+      Quantity: parseInt(quantity),
+      Type : type,
+      Status : status,
+      Date: time,
+      Address: restaurantAddress,
+      Donor: restaurantName,
     });
     Alert.alert(
       'Waste Log',
@@ -39,7 +37,7 @@ class AddScreen extends Component {
             quantity: '',
             type: '',  
           })
-          this.props.navigation.navigate('BoardDetails', {email: email})
+          this.props.navigation.navigate('BoardDetails', {email: email , name: restaurantName , address: restaurantAddress })
         }},
       ],
       {cancelable: false},
@@ -52,57 +50,59 @@ class AddScreen extends Component {
   render() {
     const { navigation } = this.props;
     const email = navigation.getParam('email', '');
-    // const rName = navigation.getParam('rName', '');
-    // const Addr = navigation.getParam('address', '');
+    const name = navigation.getParam('name', '');
+    const address = navigation.getParam('address', '');
     return (
-      <KeyboardAvoidingView style={{flex:1}}behavior="padding" enabled>
-      <View style={{ flex: 1, flexDirection: 'column' }}>
-        <TextInput
-          style= {styles.text}
-          value= {this.state.name}
-          onChangeText={(name)=> this.setState({name})}
-        />
-        <TextInput
-          style= {styles.text}
-          value= {this.state.quantity}
-          onChangeText={(quantity)=> {
-            // const chk = parseInt(quantity)
-            if(isNaN(quantity)){
-              Alert.alert(
-                'Error',
-                'Please enter a number for quantity',
-                [
-                  {text: 'OK',onPress:()=>{
-                    quantity=''      
-                    this.setState({quantity})}},
-                ],
-                {cancelable: false},
-              );     
-              // styles.text.   
-            }else{
-              this.setState({quantity})
-            }
-          }}
-        />
-        <TextInput
-          style= {styles.text}
-          value= {this.state.type}
-          onChangeText={(type)=> this.setState({type})}
-        />
-        <Button
-          title="Submit"
-          disabled={!this.state.name.length || !this.state.quantity.length || !this.state.type.length}
-          onPress={() => this.submitWaste(email)}
-        />
-        {/* <Button
-          title="Go to Home"
-          onPress={() => this.props.navigation.navigate('Board')}
-        /> */}
-        {/* <Button
-          title="Go back"
-          onPress={() => this.props.navigation.goBack()}
-        /> */}
-      </View>
+      <KeyboardAvoidingView style = {styles.container} behavior = "padding" >
+          <View>
+
+              <TextInput
+                    placeholder = "Item Name"
+                    style = {styles.input}
+                    value = {this.state.name}
+                    onChangeText = {(name)=> this.setState({name})}
+              />
+
+              <TextInput
+                    placeholder = "Quantity"
+                    style = {styles.input}
+                    value = {this.state.quantity}
+                    onChangeText = {(quantity)=> {
+                      if(isNaN(quantity))
+                      {
+                        Alert.alert(
+                          'Error',
+                          'Please enter a number for quantity',
+                          [
+                            {text: 'OK',onPress:() => {
+                              quantity = ''      
+                              this.setState({quantity})}},
+                          ],
+                          {cancelable: false},
+                        );       
+                      }
+                      else
+                      {
+                        this.setState({quantity})
+                      }
+                    }}
+              />
+
+              <TextInput
+                    placeholder = "Category"
+                    style = {styles.input}
+                    value = {this.state.type}
+                    onChangeText ={(type)=> this.setState({type})}
+              />
+
+              <Button
+                style = {styles.button}
+                title="Submit"
+                disabled = {!this.state.name.length || !this.state.quantity.length || !this.state.type.length}
+                onPress = {() => this.submitWaste(email , name , address)}
+              />
+
+          </View>
       </KeyboardAvoidingView>
     );
   }
@@ -111,10 +111,27 @@ class AddScreen extends Component {
 export default AddScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
-  head: { height: 40, backgroundColor: '#808B97' },
-  text: { flex:1, flexDirection:'row', margin: 6, },
-  row: { flexDirection: 'row', backgroundColor: '#FFF1C1' },
-  btn: { width: 58, height: 18, backgroundColor: '#78B7BB',  borderRadius: 2 },
-  btnText: { textAlign: 'center', color: '#fff' }
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingLeft: 45,
+    paddingRight: 45,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+  },
+  input: {
+    alignSelf: 'stretch',
+    height: 40,
+    marginBottom:30,
+    borderBottomColor: '#199187',
+    borderBottomWidth: 1,
+  },
+  button: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#199187',
+    marginTop: 30,
+
+  },
 });

@@ -6,10 +6,7 @@ import firebase from 'firebase'
 class DetailScreen extends Component {
   constructor() {
     super();
-    // const { navigation } = this.props;
-    // const itemId = navigation.getParam('email');
     this.ref=firebase.firestore().collection('Wastelog')
-    // this.ref = firebase.firestore().collection('Wastelog');
     this.unsubscribe = null;
     this.state = {
       loading: true,
@@ -19,7 +16,6 @@ class DetailScreen extends Component {
       checked: [],
     };
   }
-
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate)
   }
@@ -33,17 +29,16 @@ class DetailScreen extends Component {
     const chk = [];
     querySnapshot.forEach((doc) => {
       
-      var name = doc.data().itemName
-      var type = doc.data().type
-      var quantity = doc.data().quantity
-      var status = doc.data().status
-      var date = doc.data().dateAdded
+      var name = doc.data().Item
+      var type = doc.data().Type
+      var quantity = doc.data().Quantity
+      var status = doc.data().Status
+      var date = doc.data().Date
       var id = doc.id
       var test=[name, quantity, type, status, date,id];
       tableData.push(test);
       chk.push(false);
     });
-    // this.state.tableData.push(test)
     this.setState({
       loading: false,
       tableHead: ['Item Name','Quantity','Type','Status','Date Added', 'Select'],
@@ -51,16 +46,6 @@ class DetailScreen extends Component {
       checked: chk,
    });
   }
-
-  // upd= () => {
-  //   this.ref.add({
-  //     name: 'newNameBiggeer',
-  //     quantity: 23,
-  //     type: 'veg',
-  //     status: 'expired',
-  //     extra: 'fails?'
-  //   });
-  // }
   confirmDelete = (data)=>{
     data.forEach(rec => {
       const id = rec[5]
@@ -95,7 +80,7 @@ class DetailScreen extends Component {
     this.ref.doc(id).update({status: 'pending'})
   }
 
-  sendReq = () => {
+  sendReq = (email , resname , resaddress) => {
     const data = this.state.selectedData;
     donRef=firebase.firestore().collection('DonationReqs');
     // var time = String(new Date().getDate())+'/'+String(new Date().getMonth())+'/'+String(new Date().getFullYear());
@@ -103,12 +88,15 @@ class DetailScreen extends Component {
     data.forEach((req)=>{
       // const {name, quantity, type, status, date} = req;
       donRef.add({
-        itemName: String(req[0]),
-        quantity: parseInt(req[1]),
-        type: String(req[2]),
-        status: String(req[3]),
-        dateAdded: String(req[4]),
-        docID: req[5],
+        Item: String(req[0]),
+        Quantity: parseInt(req[1]),
+        //Type: String(req[2]),
+        Status: String(req[3]),
+        Date: String(req[4]),
+        Donor: resname,
+        Address: resaddress,
+        D_Email:email,
+        // docID: req[5],
       });
       this.updateStatus(req[5]);
     }
@@ -136,7 +124,7 @@ class DetailScreen extends Component {
     const { navigation } = this.props;
     const email = navigation.getParam('email', '');
     const name = navigation.getParam('name', '');
-    const addr = navigation.getParam('addr', '');
+    const address = navigation.getParam('address', '');
     if(this.state.loading){
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -213,7 +201,7 @@ class DetailScreen extends Component {
         <Button
           title={'Donate'}
           disabled={!this.state.selectedData.length}
-          onPress={() =>  this.sendReq()}
+          onPress={() =>  this.sendReq(email , name , address)}
         />
         <Button
           title={'Delete'}

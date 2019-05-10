@@ -90,7 +90,7 @@ export default class SignupDonor extends Component {
 
   }
   componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate) 
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate)
   }
   componentWillUnmount() {
     this.unsubscribe();

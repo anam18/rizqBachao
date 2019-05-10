@@ -11,8 +11,6 @@ class Screen extends Component {
     this.unsubscribe=null;
     this.state={
       email: itemId,
-      // name: this.ref.data().RestaurantName,
-      // addr: this.ref.data().Address,
     };
   }
   static navigationOptions = {
@@ -22,14 +20,15 @@ class Screen extends Component {
 
   render() {
     const { navigation } = this.props;
-    const itemId = navigation.getParam('email', 'testemail@gmail.com');
-
+    const itemId = navigation.getParam('email', '');
+    const rName = navigation.getParam('name', '');
+    const rAddress = navigation.getParam('address', '');
     return (
       <View style= {styles.container}>
-        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('BoardDetails',{ email: itemId, })}>
+        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('BoardDetails',{ email: itemId, name: rName , address: rAddress})}>
             <Text>Waste Log</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('AddBoard',{ email: itemId, })}>
+        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('AddBoard',{ email: itemId, name: rName , address: rAddress})}>
             <Text>Add Waste</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('donorNot',{ email: itemId, })}>

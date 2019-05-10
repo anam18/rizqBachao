@@ -1,22 +1,63 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Alert } from 'react-native';
 import * as firebase from 'firebase';
-
 export default class LoginScreen extends Component {
   constructor(props) {
     super(props);
+    this.ref = firebase.firestore().collection('Donors')
+    this.unsubscribe = null,
     this.state = {
       email: '',
       password:'',
       id: '',
+      restaurantAddress: '',
+      restaurantName: '',
+      data:[],
     };
-
   }
+  getNameAddress = (querySnapshot) => {
+      const data = [];
+      querySnapshot.forEach((doc) => { 
+      var email = doc.data().Email     
+      var address = doc.data().Address
+      var name = doc.data().RestaurantName
+      data.push({
+        key: email,
+        address,
+        name
+      });
+      this.setState({
+         data,
+      });
+    });
+  }
+
+  updateNameAddress = (email) => {
+      this.state.data.forEach((doc) => {
+        if(doc.key == email)
+        {
+          this.setState({
+                  restaurantName : doc.name,
+                  restaurantAddress : doc.address
+          });
+        }
+      }); 
+  }
+
+  componentDidMount(){
+    this.unsubscribe = this.ref.onSnapshot(this.getNameAddress)
+  };
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   onPress = (nxt) => {
     firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
       .then(()=>{
         Alert.alert('Login successful');
-        this.props.navigation.navigate(nxt,{email: this.state.email});
+        this.updateNameAddress(this.state.email)      
+        this.props.navigation.navigate(nxt,{ email: this.state.email , name: this.state.restaurantName , address: this.state.restaurantAddress });
       }, (error)=> {
         Alert.alert(error.message);
       });
@@ -79,19 +120,19 @@ const styles = StyleSheet.create({
     marginBottom:30,
     borderBottomColor: '#199187',
     borderBottomWidth: 1,
-},
-button: {
-  alignSelf: 'stretch',
-  alignItems: 'center',
-  padding: 20,
-  backgroundColor: '#59cbbd',
-  marginTop: 30,
+  },
+  button: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#59cbbd',
+    marginTop: 30,
 
-},
-button2: {
-  alignSelf: 'stretch',
-  alignItems: 'center',
-  padding: 20,
+  },
+  button2: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 20,
 
-},
+  },
 });
