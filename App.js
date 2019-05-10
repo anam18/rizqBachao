@@ -48,12 +48,6 @@ const RootStack = createStackNavigator(
   },
 );
 
-// export default class App extends React.Component {
-//   render() {
-//     return <RootStack />;
-//   }
-// }
-
 const AppContainer= createAppContainer(RootStack);
 
 export default class App extends React.Component {
