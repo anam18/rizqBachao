@@ -25,13 +25,13 @@ class Screen extends Component {
     const rAddress = navigation.getParam('address', '');
     return (
       <View style= {styles.container}>
-        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('BoardDetails',{ email: itemId, name: rName , address: rAddress})}>
+        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('BoardDetails', { email: itemId, name: rName , address: rAddress})}>
             <Text>Waste Log</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('AddBoard',{ email: itemId, name: rName , address: rAddress})}>
+        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('AddBoard' , { email: itemId, name: rName , address: rAddress})}>
             <Text>Add Waste</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('donorNot',{ email: itemId, })}>
+        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('donorNotifications' , { email: itemId, })}>
             <Text>Donor Notifications</Text>
         </TouchableOpacity>
       </View>

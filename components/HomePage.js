@@ -23,20 +23,20 @@ export default class App extends React.Component {
         <View style={styles.formContainer}>
           <TouchableOpacity 
           style={styles.button} 
-          onPress={()=> this.props.navigation.navigate('SignupDonor', {next: 'Donor'})}
+          onPress={()=> this.props.navigation.navigate('Log', {next: 'Donor'})}
           >
             <Text style={styles.btntext}>Donor</Text>
             
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.button}
-          onPress={()=> this.props.navigation.navigate('SignupCenter', {next: 'Center'})}
+          onPress={()=> this.props.navigation.navigate('Log', {next: 'Center'})}
           >
             <Text style={styles.btntext}>Rizq Center</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.button}
-          onPress={()=> this.props.navigation.navigate('SignupTransporter',{next: 'Transporter'})}
+          onPress={()=> this.props.navigation.navigate('Log',{next: 'Transporter'})}
           >
             <Text style={styles.btntext}>Rider</Text>
           </TouchableOpacity>

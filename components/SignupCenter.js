@@ -41,7 +41,7 @@ export default class SignupDonor extends Component {
             Email: this.state.email,
           }).then(()=>{
             Alert.alert('Data added');
-            
+            this.props.navigation.navigate('Log' , {next:'Center'})
           }
 
           );
@@ -52,6 +52,11 @@ export default class SignupDonor extends Component {
     }
     Keyboard.dismiss()
   }
+
+  onPressSignIn = () => {
+    this.props.navigation.navigate('Log' , {next : 'Center'})
+  }
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -80,7 +85,7 @@ export default class SignupDonor extends Component {
             onPress={this.onPress}>
             <Text>Sign Up</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button2}>
+            <TouchableOpacity style={styles.button2} onPress = {this.onPressSignIn}>
                 <Text style={styles.underline}>Already have an account? Sign In here.</Text>
             </TouchableOpacity>
           </View>

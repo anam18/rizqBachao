@@ -4,7 +4,6 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Screen from './components/screen';
 import DetailScreen from './components/screenDetail';
 import AddScreen from './components/addData';
-// import EditScreen from './components/editData';
 import LogIn from './components/LoginScreen';
 import SignupCenter from './components/SignupCenter';
 import SignupDonor from './components/SignupDonor'
@@ -13,26 +12,32 @@ import Rizq from './components/Rizq';
 import stats from './components/stats';
 import status from './components/status';
 import value from './components/value';
-import firebase from './firebase';
 import Home from './components/HomePage'
 import donNot from './components/DonorNotifications'
+import transNot from './components/TransporterNotifications'
 import requests from './components/requests'
+import work from './components/workk'
+import todo from './components/Todo'
+import firebase from './firebase';
 const RootStack = createStackNavigator(
   {
     Log: LogIn,
-    SignCenter: SignupCenter,
-    SignDonor: SignupDonor,
+    signCenter: SignupCenter,
+    signDonor: SignupDonor,
     signTrans: SignupTransporter,
-    rizqCent: Rizq,
-    Board: Screen,
+    Center: Rizq,
+    Donor: Screen,
     BoardDetails: DetailScreen,
     AddBoard: AddScreen,
     HomePg: Home,
-    donorNot: donNot, 
+    donorNotifications: donNot, 
     status: status,
     value: value,
     stats: stats,
     requests: requests,
+    Transporter: transNot,
+    work: work,
+    todo: todo,
   },
   {
     initialRouteName: 'HomePg',

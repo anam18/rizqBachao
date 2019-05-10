@@ -27,8 +27,7 @@ class DetailScreen extends Component {
   onCollectionUpdate = (querySnapshot) => {
     const tableData = [];
     const chk = [];
-    querySnapshot.forEach((doc) => {
-      
+    querySnapshot.forEach((doc) => {      
       var name = doc.data().Item
       var type = doc.data().Type
       var quantity = doc.data().Quantity
@@ -44,7 +43,7 @@ class DetailScreen extends Component {
       tableHead: ['Item Name','Quantity','Type','Status','Date Added', 'Select'],
       tableData,
       checked: chk,
-   });
+    });
   }
   confirmDelete = (data)=>{
     data.forEach(rec => {
@@ -71,13 +70,11 @@ class DetailScreen extends Component {
         {text: 'No'}
       ],
       {cancelable: false},
-    );
-    
-    
+    );    
   }
 
   updateStatus = (id)=>{
-    this.ref.doc(id).update({status: 'pending'})
+    this.ref.doc(id).update({Status: 'pending'})
   }
 
   sendReq = (email , resname , resaddress) => {
@@ -85,23 +82,19 @@ class DetailScreen extends Component {
     donRef=firebase.firestore().collection('DonationReqs');
     // var time = String(new Date().getDate())+'/'+String(new Date().getMonth())+'/'+String(new Date().getFullYear());
     
-    data.forEach((req)=>{
-      // const {name, quantity, type, status, date} = req;
+    data.forEach( (req) => {
       donRef.add({
-        Item: String(req[0]),
-        Quantity: parseInt(req[1]),
-        //Type: String(req[2]),
-        Status: String(req[3]),
-        Date: String(req[4]),
-        Donor: resname,
-        Address: resaddress,
-        D_Email:email,
-        // docID: req[5],
+          Item: String(req[0]),
+          Quantity: parseInt(req[1]),
+          Status: String(req[3]),
+          Date: String(req[4]),
+          Donor: resname,
+          Address: resaddress,
+          D_Email:email,
       });
       this.updateStatus(req[5]);
-    }
-    );
-    
+    });
+
     Alert.alert(
       'Donation Request',
       'Donation Request Sent! Please wait while we process it',
@@ -111,10 +104,7 @@ class DetailScreen extends Component {
       {cancelable: false},
     );
     const arr=[]
-    this.setState({
-      selectedData: arr,
-    })
-
+    this.setState({ selectedData: arr,})
   }
 
   static navigationOptions = {
@@ -138,14 +128,15 @@ class DetailScreen extends Component {
       <TouchableOpacity onPress={() => {
         var dat = this.state.selectedData
         var finalDat = []
-        if(!this.state.checked[index]){
+        if(!this.state.checked[index])
+        {
           finalDat=dat;
           finalDat.push(data);
-        }else{
-          dat.forEach(row =>{
-            if(row!=data){
-              finalDat.push(row);
-            }
+        }
+        else
+        {
+          dat.forEach(row => {
+            if (row!=data) {finalDat.push(row);}
           })
         }
         const chk=this.state.checked
@@ -190,20 +181,23 @@ class DetailScreen extends Component {
         {/* // <Rows data={this.state.tableData} textStyle={styles.text}/> */}
         </Table>
         <Button
-          title={'Add Waste'}
-          // disabled={!this.state.name.length}
-          onPress={() =>  this.props.navigation.navigate('AddBoard',{
-            email: email,
-            name: resname,
-            address: resaddress,
-          })}
+            title={'Add Waste'}
+            sytle = {styles.button}
+            onPress={() =>  this.props.navigation.navigate('AddBoard',{
+                    email: email,
+                    name: resname,
+                    address: resaddress,
+            }
+            )}
         />
         <Button
+          sytle = {styles.button}
           title={'Donate'}
           disabled={!this.state.selectedData.length}
-          onPress={() =>  this.sendReq(email , name , address)}
+          onPress={() =>  this.sendReq(email , resname , resaddress)}
         />
         <Button
+          sytle = {styles.button}
           title={'Delete'}
           disabled={!this.state.selectedData.length}
           onPress={() =>  this.delRec()}
@@ -219,7 +213,15 @@ const styles = StyleSheet.create({
   text: { margin: 6 },
   row: { flexDirection: 'row', backgroundColor: '#FFF1C1' },
   btn: { width: 58, height: 18, backgroundColor: '#78B7BB',  borderRadius: 2 },
-  btnText: { textAlign: 'center', color: '#fff' }
+  btnText: { textAlign: 'center', color: '#fff' },
+  button: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#199187',
+    marginTop: 30,
+
+  },
 });
 
 export default DetailScreen;

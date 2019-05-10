@@ -52,19 +52,39 @@ export default class LoginScreen extends Component {
     this.unsubscribe();
   }
 
-  onPress = (nxt) => {
+  onPressDonor = (next_screen) => {
     firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
       .then(()=>{
         Alert.alert('Login successful');
         this.updateNameAddress(this.state.email)      
-        this.props.navigation.navigate(nxt,{ email: this.state.email , name: this.state.restaurantName , address: this.state.restaurantAddress });
+        this.props.navigation.navigate(next_screen , { email: this.state.email , name: this.state.restaurantName , address: this.state.restaurantAddress });
       }, (error)=> {
         Alert.alert(error.message);
       });
   }
+  onPressCenter = (next_screen) => {
+    firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
+      .then(()=>{
+        Alert.alert('Login successful');     
+        this.props.navigation.navigate(next_screen);
+      }, (error)=> {
+        Alert.alert(error.message);
+      });
+  }
+  onPressTransporter = (next_screen) => {
+    firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
+      .then(()=>{
+        Alert.alert('Login successful');     
+        this.props.navigation.navigate(next_screen , this.state.email);
+      }, (error)=> {
+        Alert.alert(error.message);
+      });
+  }
+
+
   render() {
     const { navigation } = this.props;
-    const itemId = navigation.getParam('next', 'Board');
+    const itemId = navigation.getParam('next', 'Donor');
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
           <View>
@@ -82,17 +102,38 @@ export default class LoginScreen extends Component {
             onChangeText={(text)=>{this.setState({password:text})}}
             />
             <TouchableOpacity style={styles.button}
-            onPress={()=>this.onPress(itemId,this.state.email,this.state.password)}>
+              onPress = { () => {
+                if(itemId=='Donor')
+                {
+                  this.onPressDonor(itemId)
+                }
+                else if(itemId=='Center')
+                {
+                  this.onPressCenter(itemId)
+                }
+                else if(itemId=='Transporter')
+                {
+                   this.onPressTransporter(itemId)
+                }                
+              }}
+            >
                 <Text>Sign In</Text>
             {/* Need to hyperlink this button to registration form */}
             </TouchableOpacity>
             <TouchableOpacity 
               style={styles.button2}
-              onPress={()=>{
-                if(itemId=='Board'){
-                  this.props.navigation.navigate('SignDonor',{next: itemId})
-                }else if(itemId=='rizqCent'){
-                  this.props.navigation.navigate('SignCenter',{next: itemId})
+              onPress = { () => {
+                if(itemId=='Donor')
+                {
+                  this.props.navigation.navigate('signDonor',{next: itemId})
+                }
+                else if(itemId=='Center')
+                {
+                  this.props.navigation.navigate('signCenter',{next: itemId})
+                }
+                else if(itemId=='Transporter')
+                {
+                  this.props.navigation.navigate('signTrans',{next: itemId}) 
                 }                
               }}
               >

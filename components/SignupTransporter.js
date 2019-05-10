@@ -28,7 +28,7 @@ export default class SignupTransporter extends Component {
     }
     else if (this.state.contactno.length != 11)
     {
-      this.setState({err:'Please enter your contact number in the format xxxxxxxx'})
+      this.setState({err:'Please enter your contact number in the format xxxxxxxxxxx'})
     }
     else if (this.state.name == "")
     {
@@ -52,7 +52,7 @@ export default class SignupTransporter extends Component {
             Email: this.state.email,
           }).then(()=>{
             Alert.alert('Data added');
-            
+            this.props.navigation.navigate('Log' , {next : 'Transporter'})
           }
 
           );
@@ -65,6 +65,11 @@ export default class SignupTransporter extends Component {
     Keyboard.dismiss()
     
   }
+
+  onPressSignIn = () => {
+    this.props.navigation.navigate('Log' , {next : 'Transporter'})
+  }
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -121,7 +126,7 @@ export default class SignupTransporter extends Component {
             onPress={this.onPress}>
             <Text>Sign Up</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button2}>
+            <TouchableOpacity style={styles.button2} onPress = {this.onPressSignIn}>
                 <Text style={styles.underline}>Already have an account? Sign In here.</Text>
             </TouchableOpacity>
           </View>
