@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text, Alert, StyleSheet,KeyboardAvoidingView } from 'react-native';
+import { Button, View, Text, Alert, TouchableOpacity, StyleSheet,KeyboardAvoidingView } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import firebase from 'firebase'
 class AddScreen extends Component {
@@ -94,12 +94,15 @@ class AddScreen extends Component {
                     onChangeText ={(type)=> this.setState({type})}
               />
 
-              <Button
+              <TouchableOpacity style={styles.button} disabled={!this.state.name.length || !this.state.quantity.length || !this.state.type.length} onPress={() => this.submitWaste(email , name , address)}>
+                          <Text>Submit</Text>
+              </TouchableOpacity>
+              {/* <Button
                 style = {styles.button}
                 title="Submit"
                 disabled = {!this.state.name.length || !this.state.quantity.length || !this.state.type.length}
                 onPress = {() => this.submitWaste(email , name , address)}
-              />
+              /> */}
 
           </View>
       </KeyboardAvoidingView>
@@ -129,8 +132,14 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#199187',
+    backgroundColor: '#59cbbd',
     marginTop: 30,
+
+  },
+  button2: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 20,
 
   },
 });

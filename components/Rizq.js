@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-elements';
-import { reateStackNavigator } from 'react-navigation';
-import requests from './requests';
+// import { Button } from 'react-native-elements';
+// import { createStackNavigator } from 'react-navigation';
+// import requests from './requests';
 
 
 export default class App extends React.Component {

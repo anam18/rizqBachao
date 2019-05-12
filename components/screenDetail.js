@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, ActivityIndicator, View, Text, CheckBox, Button, TouchableOpacity, Alert } from 'react-native';
-import {Table, Row, Cell, TableWrapper} from 'react-native-table-component';
+// import {Table, Row, Cell, TableWrapper} from 'react-native-table-component';
+import { Card } from 'react-native-elements'
 import firebase from 'firebase'
 
 class DetailScreen extends Component {
   constructor() {
     super();
-    this.ref=firebase.firestore().collection('Wastelog')
+    var user = firebase.auth().currentUser;
+    console.log(user.email);
+    this.inRef=firebase.firestore().collection('Wastelog');
+    this.ref=this.inRef.where("D_Email", "==" ,user.email);
     this.unsubscribe = null;
     this.state = {
       loading: true,
-      tableHead: ['Item Name','Quantity','Type','Status','Date Added', 'Select'],
+      tableHead: ['Item Name','Quantity(KGs)','Type','Status','Date-Added', 'Select'],
       tableData: [],
       selectedData: [],
       checked: [],
@@ -40,7 +44,7 @@ class DetailScreen extends Component {
     });
     this.setState({
       loading: false,
-      tableHead: ['Item Name','Quantity','Type','Status','Date Added', 'Select'],
+      tableHead: ['Item Name','Quantity(KGs)','Type','Status','Date Added', 'Select'],
       tableData,
       checked: chk,
     });
@@ -48,7 +52,7 @@ class DetailScreen extends Component {
   confirmDelete = (data)=>{
     data.forEach(rec => {
       const id = rec[5]
-      this.ref.doc(id).delete();
+      this.inRef.doc(id).delete();
     })
     Alert.alert(
       'Delete Log',
@@ -74,7 +78,7 @@ class DetailScreen extends Component {
   }
 
   updateStatus = (id)=>{
-    this.ref.doc(id).update({Status: 'pending'})
+    this.inRef.doc(id).update({Status: 'pending'})
   }
 
   sendReq = (email , resname , resaddress) => {
@@ -124,6 +128,12 @@ class DetailScreen extends Component {
       );
     }
     const state = this.state
+    const horizArrange = (data,index) => (
+      <View style={{flex: 1, flexDirection: 'row'}}>
+        <Text style={{flex: 2,fontWeight:'bold', color: '#12273b'}}>{this.state.tableHead[index]}:</Text>
+        <Text style={{textAlign: 'center'}}>{data}</Text>
+      </View>
+    );
     const element = (data, index) => (
       <TouchableOpacity onPress={() => {
         var dat = this.state.selectedData
@@ -158,69 +168,113 @@ class DetailScreen extends Component {
         
       }}>
         <View style={styles.btn}>
-          {this.state.checked[index] == false? <Text style={styles.btnText}> Add </Text>: <Text style={styles.btnText}> Remove </Text> }
+          {this.state.checked[index] == false? <Text style={styles.btnText}> Select </Text>: <Text style={styles.btnText}> Deselect </Text> }
         </View>
       </TouchableOpacity>
     );
 
     return (
+      // <View style={styles.container}>
+      //   <Table borderStyle={{borderColor: 'transparent'}}>
+      //     <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
+      //     {
+      //       state.tableData.map((rowData, index) => (
+      //         <TableWrapper key={index} style={styles.row}>
+      //         {
+      //             rowData.map((cellData, cellIndex) => (
+      //               <Cell key={cellIndex} data={cellIndex === 5 ? element(rowData, index) : cellData} textStyle={styles.text}/>
+      //             ))
+      //           }
+      //         </TableWrapper>
+      //       ))
+      //     }
+      //   {/* // <Rows data={this.state.tableData} textStyle={styles.text}/> */}
+      //   </Table>
+      //   <TouchableOpacity style={styles.button}  onPress={() =>  this.props.navigation.navigate('AddBoard',{
+      //               email: email,
+      //               name: resname,
+      //               address: resaddress,
+      //       }
+      //       )}>
+      //       <Text>Add Waste</Text>
+      //   </TouchableOpacity>
+        
+      //   <TouchableOpacity style={styles.button} disabled={!this.state.selectedData.length}  onPress={() =>  this.sendReq(email , resname , resaddress)}>
+      //       <Text>Donate</Text>
+      //   </TouchableOpacity>
+
+      //   <TouchableOpacity style={styles.button} disabled={!this.state.selectedData.lenlgth}  onPress={() =>  this.delRec()}>
+      //       <Text>Delete</Text>
+      //   </TouchableOpacity>
+
+      // </View>
+      <ScrollView>
       <View style={styles.container}>
-        <Table borderStyle={{borderColor: 'transparent'}}>
-          <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
-          {
-            state.tableData.map((rowData, index) => (
-              <TableWrapper key={index} style={styles.row}>
+        { state.tableData.map((rowData,index)=>(
+            <Card containerStyle={styles.head}>
               {
-                  rowData.map((cellData, cellIndex) => (
-                    <Cell key={cellIndex} data={cellIndex === 5 ? element(rowData, index) : cellData} textStyle={styles.text}/>
-                  ))
+                rowData.map((cellData, cellIndex) =>{ 
+                  return( 
+                    <View>
+                    {
+                  cellIndex === 5 ? element(rowData, index) : horizArrange(cellData,cellIndex)
+                    }
+                    </View>
+                  )  
                 }
-              </TableWrapper>
-            ))
-          }
-        {/* // <Rows data={this.state.tableData} textStyle={styles.text}/> */}
-        </Table>
-        <Button
-            title={'Add Waste'}
-            sytle = {styles.button}
-            onPress={() =>  this.props.navigation.navigate('AddBoard',{
+                )
+              }  
+          </Card>    
+          ))
+        }
+      </View>
+      <TouchableOpacity style={styles.button}  onPress={() =>  this.props.navigation.navigate('AddBoard',{
                     email: email,
                     name: resname,
                     address: resaddress,
             }
-            )}
-        />
-        <Button
-          sytle = {styles.button}
-          title={'Donate'}
-          disabled={!this.state.selectedData.length}
-          onPress={() =>  this.sendReq(email , resname , resaddress)}
-        />
-        <Button
-          sytle = {styles.button}
-          title={'Delete'}
-          disabled={!this.state.selectedData.length}
-          onPress={() =>  this.delRec()}
-        />
-      </View>
+            )}>
+            <Text>Add Waste</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.button} disabled={!this.state.selectedData.length}  onPress={() =>  this.sendReq(email , resname , resaddress)}>
+            <Text>Donate</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} disabled={!this.state.selectedData.length}  onPress={() =>  this.delRec()}>
+            <Text>Delete</Text>
+        </TouchableOpacity>
+      </ScrollView>  
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 1, paddingTop: 30, backgroundColor: '#fff' },
-  head: { height: 40, backgroundColor: '#808B97' },
-  text: { margin: 6 },
-  row: { flexDirection: 'row', backgroundColor: '#FFF1C1' },
-  btn: { width: 58, height: 18, backgroundColor: '#78B7BB',  borderRadius: 2 },
+  head: { flex: 2, backgroundColor: '#e6e6e6', borderRadius: 2, padding: 10, bottom: 20},
+  btn: { flex: 1, backgroundColor: '#00cccc',  borderRadius: 2, padding: 5},
   btnText: { textAlign: 'center', color: '#fff' },
+  left: {backgroundColor: '#00cccc'},
   button: {
     alignSelf: 'stretch',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#199187',
-    marginTop: 30,
-
+    backgroundColor: '#59cbbd',
+    bottom: 20,
+    marginHorizontal: 30,
+    marginTop: 20,
+  },
+  child: {
+    width: 300
+  },
+  titleView: {
+    padding: 10,
+    borderBottomColor: '#e3e3e3',
+    borderBottomWidth: 1
+  },
+  title: {
+    fontSize: 16,
+    color: 'black'
   },
 });
 

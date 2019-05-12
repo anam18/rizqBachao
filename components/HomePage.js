@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-elements';
-import { reateStackNavigator } from 'react-navigation';
-import requests from './requests';
-import SignupDonor from './SignupCenter';
-import SignupCenter from './SignupCenter';
-import SignupTransporter from './SignupTransporter';
-import LoginScreen from './LoginScreen';
+// import { Button } from 'react-native-elements';
+// import { reateStackNavigator } from 'react-navigation';
+// import requests from './requests';
+// import SignupDonor from './SignupCenter';
+// import SignupCenter from './SignupCenter';
+// import SignupTransporter from './SignupTransporter';
+// import LoginScreen from './LoginScreen';
 
 
 export default class App extends React.Component {
