@@ -88,58 +88,62 @@ export default class LoginScreen extends Component {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
           <View>
-            <TextInput
-            placeholder="Email"
-            style={styles.input}
-            value={this.state.email}
-            onChangeText={(text)=>{this.setState({email:text})}}
-            />
-            <TextInput
-            placeholder="Password"
-            style={styles.input}
-            secureTextEntry={true}
-            value={this.state.password}
-            onChangeText={(text)=>{this.setState({password:text})}}
-            />
-            <TouchableOpacity style={styles.button}
-              onPress = { () => {
-                if(itemId=='Donor')
-                {
-                  this.onPressDonor(itemId)
-                }
-                else if(itemId=='Center')
-                {
-                  this.onPressCenter(itemId)
-                }
-                else if(itemId=='Transporter')
-                {
-                   this.onPressTransporter(itemId)
-                }                
-              }}
-            >
-                <Text>Sign In</Text>
-            {/* Need to hyperlink this button to registration form */}
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.button2}
-              onPress = { () => {
-                if(itemId=='Donor')
-                {
-                  this.props.navigation.navigate('signDonor',{next: itemId})
-                }
-                else if(itemId=='Center')
-                {
-                  this.props.navigation.navigate('signCenter',{next: itemId})
-                }
-                else if(itemId=='Transporter')
-                {
-                  this.props.navigation.navigate('signTrans',{next: itemId}) 
-                }                
-              }}
+            
+              <TextInput
+              placeholder="Email"
+              style={styles.input}
+              value={this.state.email}
+              onChangeText={(text)=>{this.setState({email:text})}}
+              />
+
+              <TextInput
+              placeholder="Password"
+              style={styles.input}
+              secureTextEntry={true}
+              value={this.state.password}
+              onChangeText={(text)=>{this.setState({password:text})}}
+              />
+
+              <TouchableOpacity style={styles.button}
+                onPress = { () => {
+                  if(itemId=='Donor')
+                  {
+                    this.onPressDonor(itemId)
+                  }
+                  else if(itemId=='Center')
+                  {
+                    this.onPressCenter(itemId)
+                  }
+                  else if(itemId=='Transporter')
+                  {
+                    this.onPressTransporter(itemId)
+                  }                
+                }}
               >
-                <Text style={styles.underline}>Don't have an account? Sign Up here.</Text>
-                
-            </TouchableOpacity>
+                   <Text>Sign In</Text>
+                    {/* Need to hyperlink this button to registration form */}
+              </TouchableOpacity>
+
+              <TouchableOpacity 
+                style={styles.button2}
+                onPress = { () => {
+                  if(itemId=='Donor')
+                  {
+                    this.props.navigation.navigate('signDonor',{next: itemId})
+                  }
+                  else if(itemId=='Center')
+                  {
+                    this.props.navigation.navigate('signCenter',{next: itemId})
+                  }
+                  else if(itemId=='Transporter')
+                  {
+                    this.props.navigation.navigate('signTrans',{next: itemId}) 
+                  }                
+                }}
+                >
+                    <Text style={styles.underline}>Don't have an account? Sign Up here.</Text>                 
+              </TouchableOpacity>
+              
           </View>
       </KeyboardAvoidingView>
     );

@@ -14,12 +14,11 @@ export default class App extends React.Component {
                     </View>
 
                     <View style={styles.formContainer}>
+
                         <TouchableOpacity 
                          style={styles.button} 
                          onPress={()=> this.props.navigation.navigate('Log', {next: 'Donor'})}>
-
-                          <Text style={styles.btntext}>Donor</Text>
-                          
+                            <Text style={styles.btntext}>Donor</Text>                          
                         </TouchableOpacity>
             
                         <TouchableOpacity style={styles.button}

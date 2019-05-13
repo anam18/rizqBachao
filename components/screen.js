@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, FlatList, View, Text, TextInput, Button,TouchableOpacity } from 'react-native';
-// import { List, ListItem, Button, Icon } from 'react-native-elements';
+import { StyleSheet, ScrollView, FlatList, View, Text, TextInput, Button,TouchableOpacity,ImageBackground } from 'react-native';
 import firebase from 'firebase'
 class Screen extends Component {
   constructor(props) {
@@ -25,15 +24,21 @@ class Screen extends Component {
     const rAddress = navigation.getParam('address', '');
     return (
       <View style= {styles.container}>
-        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('BoardDetails', { email: itemId, name: rName , address: rAddress})}>
-            <Text>Waste Log</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('AddBoard' , { email: itemId, name: rName , address: rAddress})}>
-            <Text>Add Waste</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('donorNotifications' , { email: itemId, })}>
-            <Text>Donor Notifications</Text>
-        </TouchableOpacity>
+        <ImageBackground source = {require('./../assets/rizqbachao_button.png')} style={{width: '100%', height: '100%'}}>
+
+          <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('BoardDetails', { email: itemId, name: rName , address: rAddress})}>
+              <Text>Waste Log</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('AddBoard' , { email: itemId, name: rName , address: rAddress})}>
+              <Text>Add Waste</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('donorNotifications' , { email: itemId, })}>
+              <Text>Donor Notifications</Text>
+          </TouchableOpacity>
+
+        </ImageBackground>
       </View>
     );
   }
