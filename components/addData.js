@@ -19,7 +19,7 @@ class AddScreen extends Component {
     this.ref.add({
       D_Email: email,      
       Item: name,
-      Quantity: parseInt(quantity),
+      Quantity: quantity,
       Type : type,
       Status : status,
       Date: time,

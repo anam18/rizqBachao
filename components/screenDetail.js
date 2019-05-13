@@ -89,7 +89,7 @@ class DetailScreen extends Component {
     data.forEach( (req) => {
       donRef.add({
           Item: String(req[0]),
-          Quantity: parseInt(req[1]),
+          Quantity: String(req[1]),
           Status: String(req[3]),
           Date: String(req[4]),
           Donor: resname,
@@ -209,26 +209,25 @@ class DetailScreen extends Component {
 
       // </View>
       <ScrollView>
-      <View style={styles.container}>
-        { state.tableData.map((rowData,index)=>(
-            <Card containerStyle={styles.head}>
-              {
-                rowData.map((cellData, cellIndex) =>{ 
-                  return( 
-                    <View>
-                    {
-                  cellIndex === 5 ? element(rowData, index) : horizArrange(cellData,cellIndex)
-                    }
-                    </View>
-                  )  
-                }
-                )
-              }  
-          </Card>    
-          ))
-        }
-      </View>
-      <TouchableOpacity style={styles.button}  onPress={() =>  this.props.navigation.navigate('AddBoard',{
+        <View style={styles.container}>
+          { state.tableData.map((rowData,index)=>(
+              <Card containerStyle={styles.head}>
+                {
+                  rowData.map((cellData, cellIndex) =>{ 
+                    return( 
+                      <View>
+                      {
+                          cellIndex === 5 ? element(rowData, index) : horizArrange(cellData,cellIndex)
+                      }
+                      </View>
+                    )  
+                  })
+                }  
+            </Card>    
+            ))
+          }
+        </View>
+       <TouchableOpacity style={styles.button}  onPress={() =>  this.props.navigation.navigate('AddBoard',{
                     email: email,
                     name: resname,
                     address: resaddress,
@@ -252,7 +251,7 @@ class DetailScreen extends Component {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 1, paddingTop: 30, backgroundColor: '#fff' },
   head: { flex: 2, backgroundColor: '#e6e6e6', borderRadius: 2, padding: 10, bottom: 20},
-  btn: { flex: 1, backgroundColor: '#00cccc',  borderRadius: 2, padding: 5},
+  btn: { flex: 1, backgroundColor: '#59cbbd',  borderRadius: 2, padding: 5},
   btnText: { textAlign: 'center', color: '#fff' },
   left: {backgroundColor: '#00cccc'},
   button: {

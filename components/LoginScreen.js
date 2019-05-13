@@ -137,7 +137,7 @@ export default class LoginScreen extends Component {
                 }                
               }}
               >
-                <Text>Don't have an account? Sign Up here.</Text>
+                <Text style={styles.underline}>Don't have an account? Sign Up here.</Text>
                 
             </TouchableOpacity>
           </View>
@@ -175,5 +175,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
 
+  },
+  underline: {
+    textDecorationLine: 'underline'
   },
 });
