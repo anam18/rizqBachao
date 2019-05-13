@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } 
 export default class App extends React.Component {
     render() {
       return (
-        
             <View style={styles.container}>
               <ImageBackground source = {require('./../assets/rizqbachao_button.png')} style={{width: '100%', height: '100%'}}>
 
@@ -54,13 +53,13 @@ export default class App extends React.Component {
     },
     headertext1:{
       color: '#ffffff',
-      fontWeight : 'bold',
+      fontWeight : '700',
       fontSize: 24,
       fontFamily: 'monospace'
     },
     headertext2:{
       color: '#ffffff',
-      fontWeight : 'bold',
+      fontWeight : '700',
       fontSize: 20,
       fontFamily: 'monospace',
     },
@@ -79,8 +78,9 @@ export default class App extends React.Component {
       padding:20,
       backgroundColor: '#59cbbd',
       marginTop:10,
-      
-
+      borderRadius:10,
+      borderWidth: 1,
+      borderColor: '#fff',      
     },
 
 

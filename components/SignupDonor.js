@@ -135,7 +135,9 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#59cbbd',
     marginTop: 30,
-
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#fff',
   },
   button2: {
     alignSelf: 'stretch',

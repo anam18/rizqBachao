@@ -262,6 +262,9 @@ const styles = StyleSheet.create({
     bottom: 20,
     marginHorizontal: 30,
     marginTop: 20,
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#fff',
   },
   child: {
     width: 300

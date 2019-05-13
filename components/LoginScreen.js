@@ -86,6 +86,7 @@ export default class LoginScreen extends Component {
     const { navigation } = this.props;
     const itemId = navigation.getParam('next', 'Donor');
     return (
+
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
           <View>
             
@@ -172,6 +173,9 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#59cbbd',
     marginTop: 30,
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#fff',
 
   },
   button2: {
