@@ -24,7 +24,6 @@ class Screen extends Component {
     const rAddress = navigation.getParam('address', '');
     return (
       <View style= {styles.container}>
-        <ImageBackground source = {require('./../assets/rizqbachao_button.png')} style={{width: '100%', height: '100%'}}>
 
           <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('BoardDetails', { email: itemId, name: rName , address: rAddress})}>
               <Text>Waste Log</Text>
@@ -38,7 +37,6 @@ class Screen extends Component {
               <Text>Donor Notifications</Text>
           </TouchableOpacity>
 
-        </ImageBackground>
       </View>
     );
   }

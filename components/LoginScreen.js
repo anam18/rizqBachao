@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Alert , ImageBackground } from 'react-native';
 import * as firebase from 'firebase';
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -143,7 +143,7 @@ export default class LoginScreen extends Component {
                 >
                     <Text style={styles.underline}>Don't have an account? Sign Up here.</Text>                 
               </TouchableOpacity>
-              
+
           </View>
       </KeyboardAvoidingView>
     );
