@@ -46,7 +46,6 @@ export default class App extends React.Component {
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      //alignItems: 'center',
       justifyContent: 'center',
     },
     logoContainer: {
@@ -64,7 +63,7 @@ export default class App extends React.Component {
       color: '#ffffff',
       fontWeight : 'bold',
       fontSize: 20,
-      fontFamily: 'Roboto',
+      fontFamily: 'monospace',
     },
     formContainer: {
        padding: 20
