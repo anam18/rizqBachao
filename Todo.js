@@ -19,10 +19,12 @@ export default class Todo extends React.PureComponent {
                       <Text>{this.props.name}</Text>
                   </View>
                   <View style={{ flex: 2 }}>
-                    <Text>this.props.quantity </Text>
+                    <Text>{this.props.quantity} </Text>
                   </View>
               </View>
           </TouchableHighlight>
         );
     }
 }
+
+// export default Todo;
