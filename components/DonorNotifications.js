@@ -4,7 +4,7 @@ import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { YellowBox } from 'react-native';
 
-
+let email = '20100018@lums.edu.pk'
 YellowBox.ignoreWarnings(['Setting a timer']);
 export default class DonorNotifications extends Component {
   constructor(props) {
@@ -12,20 +12,19 @@ export default class DonorNotifications extends Component {
     this.state = {
       loading: true,
       notification:[],
-      email: '',  
+
 
     };
-    const { navigation } = this.props;
-    const itemId = navigation.getParam('email', 'testemail@gmail.com');
-    this.ref=firebase.firestore().collection('Notifications_Donor').where("D_Email", "==" ,itemId);
+    this.ref=firebase.firestore().collection('Notifications_Donor').where("Key", "==" ,email);
     this.unsubscribe=null;
-    
+
   }
   renderItem = ({item}) => {
       return (
             
             <View style={styles.view2}>
-            <Text style={styles.fortext}>-> {item.Message}</Text>
+             <Text style={styles.fortext}>-> {item.date}</Text>
+            <Text style={styles.fortext}>{item.Message}</Text>
             </View>
             
              
@@ -42,13 +41,14 @@ export default class DonorNotifications extends Component {
   onCollectionUpdate = (querySnapshot) => {
     const notification = [];
     querySnapshot.forEach((doc) => {
-      const {Key,Message} = doc.data();
+      const {Key,Message,date} = doc.data();
       
       notification.push({
         key: doc.id,
         doc, // DocumentSnapshot
         Key,
         Message,
+        date,
       });
     });
   
@@ -58,14 +58,18 @@ export default class DonorNotifications extends Component {
    });
   }
   render() {
-    
     return (
-        <View style={styles.view1}> 
+     
+        
+          <View style={styles.view1}>
+        
         <FlatList
           data={this.state.notification}
           renderItem={this.renderItem}
         />
         </View>
+       
+        
     );
   }
 }
@@ -95,10 +99,10 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
   },
   bord:{
-    flex: 1,
-    backgroundColor: '#99ffcc',
     alignSelf: 'stretch',
-    justifyContent: 'center',
+    marginTop: 10,
+    paddingLeft: 15,
+    fontWeight: "bold"
 
 
 },
