@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Alert, Keyboard } from 'react-native';
+import { StyleSheet, Text, Image, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Alert, Keyboard } from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { YellowBox } from 'react-native';
@@ -13,12 +13,14 @@ export default class SignupDonor extends Component {
       password:"",
       address: "",
       err: "",
+      
 
     };
     this.ref=firebase.firestore().collection('Center');
 
   }
-  onPress = (nxt) => {
+  onPress = () => {
+    this.setState({err:''})
     if (this.state.address == "")
     {
       this.setState({err:'Please enter the address of your restuarant'})
@@ -39,8 +41,9 @@ export default class SignupDonor extends Component {
             Email: this.state.email,
           }).then(()=>{
             Alert.alert('Data added');
-            this.props.navigation.navigate('Log',nxt);
+            this.props.navigation.navigate('Log' , {next:'Center'})
           }
+
           );
             
         }, (error)=> {
@@ -49,25 +52,38 @@ export default class SignupDonor extends Component {
     }
     Keyboard.dismiss()
   }
+
+  onPressSignIn = () => {
+    this.props.navigation.navigate('Log' , {next : 'Center'})
+  }
+
   render() {
-    const { navigation } = this.props;
-    const itemId = navigation.getParam('next', 'Board');
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
-          <View>
-          <Text style={styles.errtext}>{this.state.err}</Text>
+          <View style = {styles.container}>
+            <Text style={styles.errtext}>{this.state.err}</Text>
+
+            <View style={styles.logoContainer1}>
+              <Image 
+              style = {{height: 100, width: 100, justifyContent: 'center'}}
+              source = {require('./../assets/rizq.png')} />
+            </View>
+
+            <View style={styles.container1}>
             <TextInput
             placeholder="Address"
             style={styles.input}
             value={this.state.address}
             onChangeText={(text)=>{this.setState({address:text})}}
             />
+
             <TextInput
             placeholder="Email"
             style={styles.input}
             value={this.state.email}
             onChangeText={(text)=>{this.setState({email:text})}}
             />
+
             <TextInput
             placeholder="Password"
             style={styles.input}
@@ -75,17 +91,16 @@ export default class SignupDonor extends Component {
             value={this.state.password}
             onChangeText={(text)=>{this.setState({password:text})}}
             />
+
             <TouchableOpacity style={styles.button}
-            onPress={()=>{this.onPress(itemId)}}>
+            onPress={this.onPress}>
             <Text>Sign Up</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
-            style={styles.button2}
-            onPress={()=>{
-              this.props.navigation.navigate('Log', {next: itemId})
-            }}>
+
+            <TouchableOpacity style={styles.button2} onPress = {this.onPressSignIn}>
                 <Text style={styles.underline}>Already have an account? Sign In here.</Text>
             </TouchableOpacity>
+            </View>
           </View>
       </KeyboardAvoidingView>
     );
@@ -96,23 +111,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingLeft: 45,
-    paddingRight: 45,
+    paddingLeft: 15,
+    paddingRight: 15,
     justifyContent: 'center',
     alignSelf: 'stretch',
+  },
+  logoContainer1: {
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container1: {
+    flex: 3,
+    padding: 10
   },
   input: {
     alignSelf: 'stretch',
     height: 30,
     marginBottom:20,
-    borderBottomColor: '#199187',
+    borderBottomColor: "goldenrod",
     borderBottomWidth: 1,
 },
 button: {
   alignSelf: 'stretch',
   alignItems: 'center',
   padding: 20,
-  backgroundColor: '#59cbbd',
+  backgroundColor: "goldenrod",
   marginTop: 30,
 
 },
