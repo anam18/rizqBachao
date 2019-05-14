@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Alert, Picker, Keyboard } from 'react-native';
+import { StyleSheet, Text, Image, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Alert, Picker, Keyboard } from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { YellowBox } from 'react-native';
@@ -21,13 +21,14 @@ export default class SignupTransporter extends Component {
 
   }
   onPress = () => {
+    this.setState({err:''})
     if (this.state.vehicle == "")
     {
       this.setState({err:'Please select a vehicle from the drop down menu'})
     }
     else if (this.state.contactno.length != 11)
     {
-      this.setState({err:'Please enter your contact number in the format xxxxxxxx'})
+      this.setState({err:'Please enter your contact number in the format xxxxxxxxxxx'})
     }
     else if (this.state.name == "")
     {
@@ -51,7 +52,7 @@ export default class SignupTransporter extends Component {
             Email: this.state.email,
           }).then(()=>{
             Alert.alert('Data added');
-            
+            this.props.navigation.navigate('Log' , {next : 'Transporter'})
           }
 
           );
@@ -64,10 +65,15 @@ export default class SignupTransporter extends Component {
     Keyboard.dismiss()
     
   }
+
+  onPressSignIn = () => {
+    this.props.navigation.navigate('Log' , {next : 'Transporter'})
+  }
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
-          <View>
+          <View style = {styles.container}>
             {/* <TextInput
             placeholder="Type of Vehicle"
             style={styles.input}
@@ -75,6 +81,14 @@ export default class SignupTransporter extends Component {
             onChangeText={(text)=>{this.setState({vehicle:text})}}
             /> */}
             <Text style={styles.errtext}>{this.state.err}</Text>
+            
+            <View style={styles.logoContainer1}>
+                <Image 
+                style = {{height: 100, width: 100, justifyContent: 'center'}}
+                source = {require('./../assets/rizq.png')} />
+            </View>
+
+            <View style={styles.container1}>
             <Picker
                 selectedValue={this.state.vehicle}
                 onValueChange={(itemValue, itemIndex) =>
@@ -87,7 +101,7 @@ export default class SignupTransporter extends Component {
                 <View
                 style={{
                     marginBottom:20,
-                    borderBottomColor: '#199187',
+                    borderBottomColor: "goldenrod",
                     borderBottomWidth: 1,
                 }}
                 />
@@ -120,13 +134,10 @@ export default class SignupTransporter extends Component {
             onPress={this.onPress}>
             <Text>Sign Up</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
-            style={styles.button2}
-            onPress={()=>{
-              this.props.navigation.navigate('Log')
-            }}>
+            <TouchableOpacity style={styles.button2} onPress = {this.onPressSignIn}>
                 <Text style={styles.underline}>Already have an account? Sign In here.</Text>
             </TouchableOpacity>
+            </View>
           </View>
       </KeyboardAvoidingView>
     );
@@ -137,23 +148,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingLeft: 45,
-    paddingRight: 45,
+    paddingLeft: 15,
+    paddingRight: 15,
     justifyContent: 'center',
     alignSelf: 'stretch',
+  },
+  logoContainer1: {
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container1: {
+    flex: 3.5,
+    padding: 10
   },
   input: {
     alignSelf: 'stretch',
     height: 30,
     marginBottom:20,
-    borderBottomColor: '#199187',
+    borderBottomColor: "goldenrod",
     borderBottomWidth: 1,
 },
 button: {
   alignSelf: 'stretch',
   alignItems: 'center',
   padding: 20,
-  backgroundColor: '#59cbbd',
+  backgroundColor: "goldenrod",
   marginTop: 30,
 
 },
