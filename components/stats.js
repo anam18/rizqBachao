@@ -55,7 +55,7 @@ export default class App extends React.Component {
       alignSelf: 'stretch',
       alignItems: 'center',
       padding:20,
-      backgroundColor: '#59cbbd',
+      backgroundColor: "goldenrod",
       marginTop:10,
       
 

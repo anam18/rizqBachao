@@ -1,25 +1,32 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Alert, TextInput } from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { YellowBox } from 'react-native';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
-export default class SignupDonor extends Component {
+export default class workk extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
       todos:[],
       email: this.props.navigation.state.params.donEmail,
+      name: this.props.navigation.state.params.donName,
+      item: this.props.navigation.state.params.donItem,
+      Quantity: this.props.navigation.state.params.donQuantity,
       message: '',
       rider: '',
+      status:'',
+      val:'',
+      date: this.props.navigation.state.params.donDate,
       comp: (new Date().getDate()) + '/' + (new Date().getMonth()+1) +'/' + new Date().getFullYear()
 
 
     };
     this.ref=firebase.firestore().collection('Transporters');
     this.ref2=firebase.firestore().collection('Notifications_Donor');
+    this.ref3=firebase.firestore().collection('DonationLogs');
     this.unsubscribe=null;
 
   }
@@ -34,13 +41,27 @@ export default class SignupDonor extends Component {
                  onPress={()=> {
                     //  Alert.alert(this.state.email)
                      this.state.rider=item.Name
-                     this.state.message='Request accepted'
+                     this.state.message='Request Accepted. Rider ' + item.Name + ' has been assigned to pick your donation.'
                      this.ref2.add({
-                        Rider: item.Name,
+                       date: this.state.date,
                         Key: this.state.email,
                         Message: this.state.message
                       }).then(()=>{
-                        Alert.alert('Transporter assigned');
+                        
+                        this.ref3.add({
+                          donor: this.state.name,
+                          Quantity: this.state.Quantity,
+                          item: this.state.item,
+                          email: this.state.email,
+                          status: this.state.status,
+                          value: this.state.val,
+                          date: this.state.date
+                           
+
+                        })
+
+                        Alert.alert("Transporter Assigned");
+
                         
                       })
                      
@@ -127,7 +148,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     alignItems: 'center',
     padding:20,
-    backgroundColor: '#59cbbd',
+    backgroundColor: "goldenrod",
     marginTop:10,
     
 

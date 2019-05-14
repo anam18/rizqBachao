@@ -73,7 +73,7 @@ export default class SignupDonor extends Component {
 
             <View style={styles.logoContainer1}>
                 <Image 
-                style = {{height: 100, width: 100, justifyContent: 'center'}}
+                style = {{height: 80, width: 80, justifyContent: 'center'}}
                 source = {require('./../assets/rizq.png')} />
             </View>
 

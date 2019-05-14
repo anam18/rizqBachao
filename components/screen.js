@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, FlatList, View, Text, TextInput, Button } from 'react-native';
-// import { List, ListItem, Button, Icon } from 'react-native-elements';
+import { StyleSheet, ScrollView, FlatList, Image, View, Text, TextInput, Button,TouchableOpacity,ImageBackground } from 'react-native';
 import firebase from 'firebase'
 class Screen extends Component {
   constructor(props) {
@@ -11,31 +10,8 @@ class Screen extends Component {
     this.unsubscribe=null;
     this.state={
       email: itemId,
-      // name: this.ref.data().RestaurantName,
-      // addr: this.ref.data().Address,
     };
   }
-  // componentDidMount() {
-  //   this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate)
-  // }
-
-  // componentWillUnmount() {
-  //   this.unsubscribe();
-  // }
-
-  // onCollectionUpdate = (querySnapshot) => {
-  //   querySnapshot.forEach((doc) => {
-      
-  //     var Raddr = doc.data().Address
-  //     var resNam = doc.data().RestaurantName
-
-  //   });
-  //   // this.state.tableData.push(test)
-  //   this.setState({
-  //     name: resNam,
-  //     addr: Raddr, 
-  //  });
-  // }
   static navigationOptions = {
     title: 'RizqBachao',
 
@@ -43,32 +19,33 @@ class Screen extends Component {
 
   render() {
     const { navigation } = this.props;
-    const itemId = navigation.getParam('email', 'testemail@gmail.com');
-
+    const itemId = navigation.getParam('email', '');
+    const rName = navigation.getParam('name', '');
+    const rAddress = navigation.getParam('address', '');
     return (
       <View style= {styles.container}>
-        <Button 
-          title="Wastelog"
-          onPress={() => this.props.navigation.navigate('BoardDetails',{
-            email: itemId,
-            // address: this.state.addr,
-            // rName: this.state.name
-          })}
-        />
-        <Button
-          title="Add Waste"
-          onPress={() => this.props.navigation.navigate('AddBoard',{
-            email: itemId,
-            // address: this.state.addr,
-            // rName: this.state.name
-          })}
-        />
-        <Button
-          title="Donor Notifications"
-          onPress={() => this.props.navigation.navigate('donorNot',{
-            email: itemId
-          })}
-        />
+
+            <View style={styles.logoContainer1}>
+              <Image 
+              style = {{height: 80, width: 80, justifyContent: 'center'}}
+              source = {require('./../assets/rizq.png')} />
+            </View>
+            <View style={styles.logoContainer}>
+              <Text>Welcome to RIZQ</Text>
+            </View>
+          <View style={styles.container1}>
+            <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('BoardDetails', { email: itemId, name: rName , address: rAddress})}>
+                <Text style={{fontWeight : 'bold', fontSize: 17}}>Waste Log</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('AddBoard' , { email: itemId, name: rName , address: rAddress})}>
+                <Text style={{fontWeight : 'bold', fontSize: 17}}>Add Waste</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('donorNotifications' , { email: itemId, })}>
+                <Text style={{fontWeight : 'bold', fontSize: 17}}>Donor Notifications</Text>
+            </TouchableOpacity>
+          </View>
       </View>
     );
   }
@@ -78,8 +55,38 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingLeft: 15,
+    paddingRight: 15,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+  },
+  logoContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    color: "black",
+    fontWeight : 'bold',
+    fontSize: 24,
+    fontFamily: 'monospace'
+
+  },
+  logoContainer1: {
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container1: {
+    flex: 3,
+    padding: 10
+  },
+  button: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: "goldenrod",
+    marginTop: 25,
+    marginLeft: 20,
+    marginRight: 20,
   },
 });
 

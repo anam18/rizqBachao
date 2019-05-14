@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons"
 // import { Button } from 'react-native-elements';
-// import { reateStackNavigator } from 'react-navigation';
-import requests from './requests';
+// import { createStackNavigator } from 'react-navigation';
+// import requests from './requests';
 
 
 export default class App extends React.Component {
@@ -10,6 +11,11 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           
+          <View style={styles.logoContainer1}>
+              <Image 
+              style = {{height: 80, width: 80, justifyContent: 'center'}}
+              source = {require('./../assets/rizq.png')} />
+            </View>
 
         <View style={styles.logoContainer}>
           <Text>Welcome to RIZQ</Text>
@@ -51,21 +57,33 @@ export default class App extends React.Component {
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      //alignItems: 'center',
+      paddingLeft: 15,
+      paddingRight: 15,
       justifyContent: 'center',
+      alignSelf: 'stretch',
     },
     logoContainer: {
       alignItems: 'center',
       justifyContent: 'center',
+      color: "black",
+      fontWeight : 'bold',
+      fontSize: 24,
+      fontFamily: 'monospace'
 
     },
+    logoContainer1: {
+      flex: 1,
+      backgroundColor: '#fff',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     formContainer: {
-       padding: 20
-  
+      flex: 3,
+      padding: 10
       },
 
     btntext: {
-      color: '#fff',
+      color: "black",
       fontWeight: 'bold',
     },
 
@@ -73,10 +91,11 @@ export default class App extends React.Component {
       alignSelf: 'stretch',
       alignItems: 'center',
       padding:20,
-      backgroundColor: '#59cbbd',
-      marginTop:10,
-      
-
+      backgroundColor: "goldenrod",
+      marginTop:20,
+      marginLeft: 20,
+      marginRight: 20,
+      fontSize: 17,
     },
 
 

@@ -6,7 +6,7 @@ import { YellowBox } from 'react-native';
 
 let email = '20100018@lums.edu.pk'
 YellowBox.ignoreWarnings(['Setting a timer']);
-export default class DonorNotifications extends Component {
+export default class TransporterNotifications extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +15,7 @@ export default class DonorNotifications extends Component {
 
 
     };
-    this.ref=firebase.firestore().collection('Notifications_Donor').where("Key", "==" ,email);
+    this.ref=firebase.firestore().collection('Notifications_Transporter').where("Key", "==" ,email);;
     this.unsubscribe=null;
 
   }
@@ -23,7 +23,7 @@ export default class DonorNotifications extends Component {
       return (
             
             <View style={styles.view2}>
-             <Text style={styles.fortext}>-> {item.date}</Text>
+            <Text style={styles.fortext}>-> {item.date}</Text>
             <Text style={styles.fortext}>{item.Message}</Text>
             </View>
             
@@ -59,17 +59,12 @@ export default class DonorNotifications extends Component {
   }
   render() {
     return (
-     
-          
-          <View style={styles.view1}>
-        
+        <View style={styles.view1}> 
         <FlatList
           data={this.state.notification}
           renderItem={this.renderItem}
         />
         </View>
-       
-        
     );
   }
 }
@@ -99,10 +94,10 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
   },
   bord:{
+    flex: 1,
+    backgroundColor: '#99ffcc',
     alignSelf: 'stretch',
-    marginTop: 10,
-    paddingLeft: 15,
-    fontWeight: "bold"
+    justifyContent: 'center',
 
 
 },
