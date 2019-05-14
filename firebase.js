@@ -17,3 +17,6 @@ if (!firebase.apps.length) {
 // firebase.firestore().settings(settings);
 
 export default firebase;
+
+// email: rizqbachaoapp@gmail.com
+// pass:linktofirebase23
