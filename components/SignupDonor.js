@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Alert, Keyboard } from 'react-native';
+import { StyleSheet, Text, Image, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Alert, Keyboard } from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { YellowBox } from 'react-native';
@@ -20,7 +20,8 @@ export default class SignupDonor extends Component {
     this.ref=firebase.firestore().collection('Donors');
 
   }
-  onPress = (nxt) => {
+  onPress = () => {
+    this.setState({err:''})
     if (this.state.restaurant == "")
     {
       this.setState({err:'Please enter the name of your restaurant'})
@@ -50,24 +51,33 @@ export default class SignupDonor extends Component {
             ContactNo: this.state.contactno,
             Email: this.state.email,
           }).then(()=>{
-            Alert.alert('Data added');
-            this.props.navigation.navigate('Log',nxt);
-          }
-          );
-            
+              Alert.alert('Data added');
+              this.props.navigation.navigate('Log' , {next:'Donor'})    
+          });            
         }, (error)=> {
           Alert.alert(error.message);
         });
     }
     Keyboard.dismiss()
   }
+  onPressSignIn = () => {
+    this.props.navigation.navigate('Log' , {next : 'Donor'})
+  }
+
   render() {
-    const { navigation } = this.props;
-    const itemId = navigation.getParam('next', 'Board');
-    return (
+     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
-          <View>
-          <Text style={styles.errtext}>{this.state.err}</Text>
+          <View style = {styles.container}>
+
+            <Text style={styles.errtext}>{this.state.err}</Text>
+
+            <View style={styles.logoContainer1}>
+                <Image 
+                style = {{height: 100, width: 100, justifyContent: 'center'}}
+                source = {require('./../assets/rizq.png')} />
+            </View>
+
+            <View style={styles.container1}>
             <TextInput
             placeholder="Restaurant Name"
             style={styles.input}
@@ -100,16 +110,13 @@ export default class SignupDonor extends Component {
             onChangeText={(text)=>{this.setState({password:text})}}
             />
             <TouchableOpacity style={styles.button}
-            onPress={()=>{this.onPress(itemId)}}>
+            onPress={this.onPress}>
             <Text>Sign Up</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
-            style={styles.button2}
-            onPress={()=>{
-              this.props.navigation.navigate('Log',{next: itemId})
-            }}>
+            <TouchableOpacity style={styles.button2} onPress = {this.onPressSignIn}>
                 <Text style={styles.underline}>Already have an account? Sign In here.</Text>
             </TouchableOpacity>
+            </View>
           </View>
       </KeyboardAvoidingView>
     );
@@ -120,36 +127,46 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingLeft: 45,
-    paddingRight: 45,
+    paddingLeft: 15,
+    paddingRight: 15,
     justifyContent: 'center',
     alignSelf: 'stretch',
+  },
+  logoContainer1: {
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container1: {
+    flex: 3,
+    padding: 10
   },
   input: {
     alignSelf: 'stretch',
     height: 30,
     marginBottom:20,
-    borderBottomColor: '#199187',
+    borderBottomColor: "goldenrod",
     borderBottomWidth: 1,
-},
-button: {
-  alignSelf: 'stretch',
-  alignItems: 'center',
-  padding: 20,
-  backgroundColor: '#59cbbd',
-  marginTop: 30,
+  },
+  button: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: "goldenrod",
+    marginTop: 30,
 
-},
-button2: {
-  alignSelf: 'stretch',
-  alignItems: 'center',
-  padding: 20,
+  },
+  button2: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 20,
 
-},
-underline: {
-  textDecorationLine: 'underline'
-},
-errtext:{
-  color: 'red'
-}
+  },
+  underline: {
+    textDecorationLine: 'underline'
+  },
+    errtext:{
+    color: 'red'
+  }
 });
