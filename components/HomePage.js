@@ -9,7 +9,7 @@ export default class App extends React.Component {
         <View style={styles.container}>
                 <View style={styles.logoContainer1}>
                   <Image 
-                  style = {{height: 200, width: 200, justifyContent: 'center'}}
+                  style = {{height: 130, width: 130, justifyContent: 'center'}}
                   source = {require('./../assets/rizq.png')} />
                 </View>
 
@@ -22,7 +22,7 @@ export default class App extends React.Component {
                   <View>
                     <TouchableOpacity style={styles.button}
                       onPress={()=> this.props.navigation.navigate('Log', {next: 'Donor'})}>
-                        <MaterialCommunityIcons name = "food" size={33} color = 'black' /> 
+                        <MaterialCommunityIcons name = "food" size={36} color = 'black' /> 
                         <Text style={styles.btntext}>Donor</Text>                         
                     </TouchableOpacity>
                   </View>
@@ -30,7 +30,7 @@ export default class App extends React.Component {
                   <View>
                     <TouchableOpacity style={styles.button}
                     onPress={()=> this.props.navigation.navigate('Log', {next: 'Center'})}>
-                        <MaterialCommunityIcons name = "office-building" size={33} color = 'black' />
+                        <MaterialCommunityIcons name = "office-building" size={36} color = 'black' />
                         <Text style={styles.btntext}>Rizq Center</Text>
                     </TouchableOpacity>
                   </View>
@@ -38,7 +38,7 @@ export default class App extends React.Component {
                   <View>
                     <TouchableOpacity  style={styles.button}
                     onPress={()=> this.props.navigation.navigate('Log',{next: 'Transporter'})} >
-                        <Ionicons name = "md-car" size={33} color = 'black' />
+                        <Ionicons name = "md-car" size={36} color = 'black' />
                         <Text style={styles.btntext}>Rider</Text>
                     </TouchableOpacity>   
                   </View>
